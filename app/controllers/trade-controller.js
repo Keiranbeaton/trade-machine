@@ -3,7 +3,7 @@
 module.exports = (app) => {
   app.controller('TradeController', ['$log', '$http', '$rootScope',TradeController]);
   function TradeController($log, $http, $rootScope) {
-    this.salaryCap = $rootScope.salaryCap;
+    this.salaryCap = $rootScope.salaryCap.cap;
     this.teams = [];
     this.teamOne = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
     this.teamTwo = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
@@ -45,18 +45,32 @@ module.exports = (app) => {
       $log.log(slot + ' cleared');
     };
 
+    this.resetPlayers = function(team) {
+      if (team.active) {
+        team.players.forEach((player) => {
+          player.inTrade = false;
+        });
+      }
+    };
+
     this.resetTeams = function() {
       $log.debug('TradeController.resetTeams');
-      this.teamOne = {active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamTwo = {active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamThree = {active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamFour = {active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
+
+      this.teamOne = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
+      this.teamTwo = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
+      this.teamThree = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
+      this.teamFour = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.tradeResult = {};
       this.tradeComplete = false;
     };
 
+
     this.resetTrade = function() {
       $log.debug('TradeController.resetTrade');
+      this.resetPlayers(this.teamOne);
+      this.resetPlayers(this.teamTwo);
+      this.resetPlayers(this.teamThree);
+      this.resetPlayers(this.teamFour);
       this.teamOne = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamTwo = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamThree = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
@@ -70,9 +84,10 @@ module.exports = (app) => {
         this.tradeResult.warningText = 'Teams cannot use a Trade Exception in the same trade where they trading away a player';
         this.tradeResult.warning = true;
       }
-      if (player.tradeRestrictions.length) {
-        this.tradeResult.warningText = player.name + ' has a trade restriction that may prevent this trade from succeeding';
-      }
+      // Will add for No Trade Clause, Recent free agent acquisition, or other situations where a player may not be tradeable
+      // if (player.tradeRestrictions.length) {
+      //   this.tradeResult.warningText = player.name + ' has a trade restriction that may prevent this trade from succeeding';
+      // }
       player.inTrade = true;
       currTeam.sending.push(player);
       newTeam.receiving.push(player);
@@ -85,29 +100,63 @@ module.exports = (app) => {
       player.inTrade = false;
     };
 
-    function tradeImpact(team) {
-      let capChange = 0;
-      let playersSent = [];
-      let playersReceived = [];
-      let picksSent = [];
-      let picksReceived = [];
-      let tradeException;
-      if (team.isActive) {
+    this.tradeImpact = function(team) {
+      if (team.active) {
+        let salaryLost = 0;
+        let salaryGained = 0;
+        let playersSent = [];
+        let playersReceived = [];
+        let picksSent = team.sending.picks;
+        let picksReceived = team.receiving.picks;
+        let tradeExceptionUsed;
+        let tradeExceptionEarned;
+        let tradeResult;
         team.receiving.players.forEach((player) => {
-          capChange += player.contract.yearByYear[0];
+          salaryGained += player.contract.yearByYear[0];
           playersReceived.push(player);
         });
         team.sending.players.forEach((player) => {
-          capChange += player.contract.yearByYear[0];
+          salaryLost += player.contract.yearByYear[0];
           playersSent.push(player);
         });
-      }
-    }
 
-    this.makeTrade = function() {
-      if (this.teamOne.isActive) {
-        this.teamOne.sending.forEach(());
+        let capChange = salaryGained - salaryLost;
+        let finalSalary = team.totalSalary + capChange;
+        let finalCapRoom = this.salaryCap - finalSalary;
+        // Prevents players from sending more than one trade exception, or from packaging a player with a tade exception
+        if ((team.sending.players.length && team.sending.tradeExceptions.length) || team.sending.tradeExceptions.length > 1) {
+          tradeResult = {success: false, reason: 'Traded Player Exceptions cannot be traded along with players or other trade exceptions'};
+          return tradeResult;
+        }
+        // Prevents trading a traded player exception for a player whose salary this year is greater than the total value of the TPE
+        if (team.sending.tradeExceptions && team.sending.tradeExceptions[0].value < salaryGained) {
+          tradeResult = {success: false, reason: 'Traded Player Exceptions cannot be traded for a player whose salary exceeds their value'};
+        }
+        // Prevents teams over the salary cap from receiving more than 150% of their current salary + $100000 as per league rules
+        if (finalSalary > this.salaryCap && salaryGained * 1.5 + 100000 > salaryLost) {
+          tradeResult = {success: false, reason: team.name + ' is over the salary cap, and cannot receive in excess of 150% of the salary they sent plus $100000'};
+          return tradeResult;
+        }
+
+        if (team.sending.tradeExceptions) {
+          tradeExceptionUsed = team.sending.tradeExceptions[0].value - salaryGained;
+        }
+
+        if(finalSalary > this.salaryCap && capChange < 0) {
+          tradeExceptionEarned = capChange;
+        }
+
+        return {active:true, success: true, capChange: capChange, finalCapRoom: finalCapRoom, playersLost: playersSent, newPlayers: playersReceived, picksLost: picksSent, newPicks: picksReceived, finalSalary: finalSalary, newTPE: tradeExceptionUsed};
       }
-    }
+      return {active: false};
+    };
+
+    this.submitTrade = function(){
+      this.tradeResults.teamOne = this.tradeImpact(this.teamOne);
+      this.tradeResults.teamTwo = this.tradeImpact(this.teamTwo);
+      this.tradeResults.teamThree = this.tradeImpact(this.teamThree);
+      this.tradeResults.teamFour = this.tradeImpact(this.teamFour);
+      this.tradeComplete = true;
+    };
   }
 };
