@@ -1,1 +1,61 @@
 @import './vendors/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
+
+h3 {
+  display: inline-block;
+}
+
+.player-name {
+  display: inline-block;
+  width: 65%;
+  margin-left: 3%;
+}
+
+.player-salary {
+  display: inline-block;
+  padding-right: 5%;
+  text-align: right;
+  width: 31%;
+}
+
+.player {
+  border: thin solid black;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.team-info {
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+}
+
+.team-name {
+  width: 20%;
+  display: inline-block;
+  text-align: center;
+}
+p.team-info {
+  margin-bottom: 1%;
+}
+
+.team-container {
+  width: 100%;
+  border: thin solid black;
+  margin-right: 15px;
+}
+
+button.trade-button {
+  font-size: 1rem;
+  width: 20%;
+  margin: 0;
+}
+
+p.trade-button {
+  font-size: 1rem;
+  display: inline-block;
+  width: 20%;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

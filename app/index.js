@@ -1,7 +1,7 @@
 'use strict';
 
 require('!!file-loader?name=[name].[ext]!./html/index.html');
-require('./scss/base.scss');
+require('./styles/base.scss');
 
 const angular = require('angular');
 const angularRoute = require('angular-route');
@@ -12,7 +12,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   $rootScope.salaryCap = {year: '2016-17', cap: 94140000, tax: 113290000};
   $rootScope.exampleTeam = {
     id: 1,
-    name: 'Example Team',
+    name: 'Example',
     abbreviation: 'Ex',
     totalSalary: 100000000,
     draftPicks: [{round: 1, year: 2018, conditions: 'Top 10 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 2}],
@@ -36,7 +36,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   };
   $rootScope.exampleTwo = {
     id: 2,
-    name: 'Another Example',
+    name: 'Example2',
     abbreviation: 'Aex',
     totalSalary: 110000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 15 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 2}],
@@ -58,9 +58,9 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
       {firstName: 'Example', lastName: 'Player', position: 3, age: 25, height: 80, weight: 240, teamId: 2, id: 29, contract: {length: 3, total: 15000000, yearByYear: [4000000, 5000000, 6000000], optionType: 'None', optionYear: 0}},
       {firstName: 'Example', lastName: 'Player', position: 3, age: 25, height: 80, weight: 240, teamId: 2, id: 30, contract: {length: 3, total: 15000000, yearByYear: [4000000, 5000000, 6000000], optionType: 'None', optionYear: 0}}]
   };
-  $rootScope.anotherExample = {
-    id: 2,
-    name: 'Third Example',
+  $rootScope.exampleThree = {
+    id: 3,
+    name: 'Example3',
     abbreviation: 'Tex',
     totalSalary: 82000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 15 Protected', originalOwnerId: 1}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 3}, {round:1, year: 2018, conditions: 'None', originalOwnerId:3}],
@@ -82,9 +82,9 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
       {firstName: 'Example', lastName: 'Player', position: 3, age: 25, height: 80, weight: 240, teamId: 3, id: 44, contract: {length: 3, total: 15000000, yearByYear: [4000000, 5000000, 6000000], optionType: 'None', optionYear: 0}},
       {firstName: 'Example', lastName: 'Player', position: 3, age: 25, height: 80, weight: 240, teamId: 3, id: 45, contract: {length: 3, total: 15000000, yearByYear: [4000000, 5000000, 6000000], optionType: 'None', optionYear: 0}}]
   };
-  $rootScope.fourthExample = {
+  $rootScope.exampleFour = {
     id: 4,
-    name: 'Fourth Example',
+    name: 'Example4',
     abbreviation: 'Fex',
     totalSalary: 110000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 5 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 4}],

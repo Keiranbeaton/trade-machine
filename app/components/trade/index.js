@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(app) {
-  app.component('kb-trade', {
+  app.component('kbTrade', {
     controller: 'TradeController',
     template: require('./trade-template.html'),
     bindings: {
