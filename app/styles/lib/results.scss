@@ -1,0 +1,28 @@
+div.results-view {
+  background-color: white;
+  h5 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+h3.result-success {
+  text-align: center;
+  color: #008211;
+}
+
+h3.result-failure {
+  text-align: center;
+  color: #b90000;
+}
+
+ul.result-reason {
+  width: 100%;
+  li {
+    width: 100%;
+  }
+}
+
+div.results-button {
+  text-align: center;
+}

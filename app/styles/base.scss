@@ -1,37 +1,58 @@
 @import './vendors/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
+@import './lib/themes.scss';
+@import './lib/roster.scss';
+@import './lib/results.scss';
+@import './lib/info.scss';
+@import './lib/extras.scss';
 
-h3 {
-  display: inline-block;
+html, body {
+  height: 100%;
+  width: 100%;
+  margin:0;
+  padding: 0;
 }
 
-.player-name {
-  display: inline-block;
-  width: 65%;
-  margin-left: 3%;
+// body {
+//   background-size: 100% 100%;
+//   background-image: url('../assets/spurs-logo-thin.png');
+// }
+
+.trade-sending {
+  background-color: white;
 }
 
-.player-salary {
-  display: inline-block;
-  padding-right: 5%;
-  text-align: right;
-  width: 31%;
+.trade-receiving {
+  background-color: white;
+}
+
+.team-results-container {
+  width: 100%;
+}
+
+.buttons-row {
+  text-align: center;
+}
+
+.trade-sending {
+  display: none;
 }
 
 .player {
   border: thin solid black;
   vertical-align: middle;
   width: 100%;
+  background-color: white;
 }
 
 .team-info {
   display: inline-block;
-  width: 20%;
+  width: 24%;
   text-align: center;
 }
 
 .team-name {
-  width: 20%;
+  width: 24%;
   display: inline-block;
   text-align: center;
 }
@@ -39,23 +60,48 @@ p.team-info {
   margin-bottom: 1%;
 }
 
-.team-container {
+div.team-container-phone {
+  background-color: white;
   width: 100%;
   border: thin solid black;
   margin-right: 15px;
+  h5 {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+  }
+  p {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  button {
+    width: 100%;
+  }
 }
 
-button.trade-button {
-  font-size: 1rem;
-  width: 20%;
-  margin: 0;
+.team-container {
+  display: none;
 }
 
-p.trade-button {
-  font-size: 1rem;
-  display: inline-block;
-  width: 20%;
-  text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
+
+
+@media (min-width: 768px) {
+  // body {
+  //   background-image: url('../assets/spurs-logo-wide.png');
+  // }
+  .trade-sending {
+    display:inline-block;
+  }
+  div.team-container-phone {
+    display: none;
+  }
+  div.team-container {
+    display: inline-block;
+    background-color: white;
+    width: 100%;
+    border: thin solid black;
+    margin-right: 15px;
+  }
 }
