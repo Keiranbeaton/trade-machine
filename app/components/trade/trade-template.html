@@ -1,0 +1,118 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <p class="navbar-brand"></p>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" ng-show="$ctrl.tradeComplete">
+
+</div>
+<div class="container-fluid" ng-hide="$ctrl.tradeComplete">
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="player" ng-repeat="player in $ctrl.teamOne.team.roster">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          {{player.firstName}} {{player.lastName}}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="player" ng-repeat="player in $ctrl.teamTwo.team.roster">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          {{player.firstName}} {{player.lastName}}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamOne)">
+        <select ng-options="team.name for team in $ctrl.teams" ng-model="$ctrl.teamOne.team"></select>
+        <button type="submit" class="btn btn-default">Choose Team</button>
+      </form>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamTwo)">
+        <select ng-options="team.name for team in $ctrl.teams" ng-model="$ctrl.teamTwo.team"></select>
+        <button type="submit" class="btn btn-default">Choose Team</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <p ng-repeat="player in $ctrl.teamOne.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
+      <p ng-repeat="pick in $ctrl.teamOne.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
+      <p ng-repeat="obj in $ctrl.teamOne.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <p ng-repeat="player in $ctrl.teamOne.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
+      <p ng-repeat="pick in $ctrl.teamOne.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <p ng-repeat="player in $ctrl.teamTwo.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
+      <p ng-repeat="pick in $ctrl.teamTwo.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
+      <p ng-repeat="obj in $ctrl.teamTwo.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+      <p ng-repeat="player in $ctrl.teamOne.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
+      <p ng-repeat="pick in $ctrl.teamOne.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <p ng-show="$ctrl.tradeResult.warning">
+        {{this.tradeResult.warningText}}
+        <button type="button" class="btn btn-warning" ng-click="$ctrl.dismissWarning()">Got It</button>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamThree)">
+        <select ng-options="team.name for team in $ctrl.teams" ng-model="$ctrl.teamThree.team"></select>
+        <button type="submit" class="btn btn-default">Choose Team</button>
+      </form>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamFour)">
+        <select ng-options="team.name for team in $ctrl.teams" ng-model="$ctrl.teamFour.team"></select>
+        <button type="submit" class="btn btn-default">Choose Team</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="player" ng-repeat="player in $ctrl.teamThree.team.roster">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          {{player.firstName}} {{player.lastName}}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+      <div class="player" ng-repeat="player in $ctrl.teamFour.team.roster">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          {{player.firstName}} {{player.lastName}}
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

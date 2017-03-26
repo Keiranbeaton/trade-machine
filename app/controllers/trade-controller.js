@@ -9,7 +9,7 @@ module.exports = (app) => {
     this.teamTwo = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
     this.teamThree = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
     this.teamFour = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-    this.tradeResult = {};
+    this.tradeResult = {warning:false};
     this.tradeComplete = false;
 
     this.getTeams = function() {
@@ -25,13 +25,13 @@ module.exports = (app) => {
       this.teams.push($rootScope.fourthExample);
     };
 
-    this.setTeamSlot = function(slot, team) {
+    this.setTeamSlot = function(slot) {
       $log.debug('TradeController.setTeamSlot');
-      slot.team = team;
+      // slot.team = team;
       slot.active = true;
-      slot.capRoom = this.salaryCap - slot.capRoom;
+      slot.capRoom = this.salaryCap - slot.team.totalSalary;
       this.tradeComplete = false;
-      $log.log(slot + ' set as ' + team);
+      $log.log(slot);
     };
 
     this.emptySlot = function(slot) {
@@ -55,7 +55,6 @@ module.exports = (app) => {
 
     this.resetTeams = function() {
       $log.debug('TradeController.resetTeams');
-
       this.teamOne = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamTwo = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamThree = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
@@ -75,7 +74,7 @@ module.exports = (app) => {
       this.teamTwo = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamThree = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.teamFour = {sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      $log.log('Reset sending and receiving for all teams in TradeController.tradeMachine');
+      $log.log('Reset sending and receiving for all teams in TradeController');
     };
 
     this.sendPlayer = function(player, currTeam, newTeam) {
@@ -137,25 +136,33 @@ module.exports = (app) => {
           tradeResult = {success: false, reason: team.name + ' is over the salary cap, and cannot receive in excess of 150% of the salary they sent plus $100000'};
           return tradeResult;
         }
-
+        // Updates value of a traded player exception that is used to acquire a player
         if (team.sending.tradeExceptions) {
           tradeExceptionUsed = team.sending.tradeExceptions[0].value - salaryGained;
         }
-
+        // Shows value of a traded player exception a team could acquire from this trade
         if(finalSalary > this.salaryCap && capChange < 0) {
           tradeExceptionEarned = capChange;
         }
 
-        return {active:true, success: true, capChange: capChange, finalCapRoom: finalCapRoom, playersLost: playersSent, newPlayers: playersReceived, picksLost: picksSent, newPicks: picksReceived, finalSalary: finalSalary, newTPE: tradeExceptionUsed};
+        return {active:true, success: true, capChange: capChange, finalCapRoom: finalCapRoom, playersLost: playersSent, newPlayers: playersReceived, picksLost: picksSent, newPicks: picksReceived, finalSalary: finalSalary, newTPE: tradeExceptionEarned, usedTPE: tradeExceptionUsed};
       }
       return {active: false};
     };
 
+    this.dismissWarning = function() {
+      $log.debug('TradeController.dismmissWarning');
+      this.tradeResult.warningText = '';
+      this.tradeResult.warning = false;
+    };
+
     this.submitTrade = function(){
-      this.tradeResults.teamOne = this.tradeImpact(this.teamOne);
-      this.tradeResults.teamTwo = this.tradeImpact(this.teamTwo);
-      this.tradeResults.teamThree = this.tradeImpact(this.teamThree);
-      this.tradeResults.teamFour = this.tradeImpact(this.teamFour);
+      $log.debug('TradeController.submitTrade');
+      this.tradeResult.teamOne = this.tradeImpact(this.teamOne);
+      this.tradeResult.teamTwo = this.tradeImpact(this.teamTwo);
+      this.tradeResult.teamThree = this.tradeImpact(this.teamThree);
+      this.tradeResult.teamFour = this.tradeImpact(this.teamFour);
+      this.tradeResult.warning = false;
       this.tradeComplete = true;
     };
   }
