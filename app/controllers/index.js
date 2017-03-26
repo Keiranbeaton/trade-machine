@@ -1,6 +1,5 @@
 'use strict';
 
-module.exports = (app) {
-  require('./team-controller')(app);
+module.exports = (app) => {
   require('./trade-controller')(app);
 };
