@@ -74,40 +74,40 @@
       <p>Select teams to include them in a trade</p>
     </div>
     <div class="machine-container choose-team-dropdowns">
-      <div class="single-dropdown" uib-dropdown>
-        <button id="choose-team-one" type="button" class="btn btn-default" uib-dropdown-toggle> Add Team <span class="caret"></span></button>
+      <div class="btn-group" uib-dropdown>
+        <button id="choose-team-one" type="button" class="btn btn-default" uib-dropdown-toggle> {{$ctrl.teamOne.team.name}} <span class="caret"></span></button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-one">
-          <li role="menuitem" ng-style="$ctrl.teams[0].background"><a href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[1].background"><a href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[2].background"><a href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[3].background"><a href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+          <li role="menuitem"><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
         </ul>
       </div>
       <div class="single-dropdown" uib-dropdown>
-        <button id="choose-team-two" type="button" class="btn btn-default" uib-dropdown-toggle> Add Team <span class="caret"></span></button>
+        <button id="choose-team-two" type="button" class="btn btn-default" uib-dropdown-toggle> {{$ctrl.teamTwo.team.name}} <span class="caret"></span></button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-two">
-          <li role="menuitem" ng-style="$ctrl.teams[0].background"><a href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[1].background"><a href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[2].background"><a href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[3].background"><a href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
         </ul>
       </div>
       <div class="single-dropdown" uib-dropdown>
-        <button id="choose-team-three" type="button" class="btn btn-default" uib-dropdown-toggle> Add Team <span class="caret"></span></button>
+        <button id="choose-team-three" type="button" class="btn btn-default" uib-dropdown-toggle> {{$ctrl.teamThree.team.name}} <span class="caret"></span></button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-three">
-          <li role="menuitem" ng-style="$ctrl.teams[0].background"><a href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[1].background"><a href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[2].background"><a href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[3].background"><a href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
         </ul>
       </div>
       <div class="single-dropdown" uib-dropdown>
-        <button id="choose-team-four" type="button" class="btn btn-default" uib-dropdown-toggle> Add Team <span class="caret"></span></button>
+        <button id="choose-team-four" type="button" class="btn btn-default" uib-dropdown-toggle> {{$ctrl.teamFour.team.name}} <span class="caret"></span></button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-four">
-          <li role="menuitem" ng-style="$ctrl.teams[0].background"><a href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[1].background"><a href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[2].background"><a href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
-          <li role="menuitem" ng-style="$ctrl.teams[3].background"><a href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
         </ul>
       </div>
     </div>
@@ -175,7 +175,7 @@
             <p>Salary</p>
           </div>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.receiving">
+        <div class="player-container" ng-repeat="player in $ctrl.teamOne.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
@@ -184,6 +184,14 @@
           <div class="player-contract">
             <p>${{player.contract.yearByYear[0] | number}}</p>
             <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
+        <div class="receiving-summary">
+          <div class="receiving-number">
+            <p>Acquiring {{$ctrl.teamOne.receiving.players.length}} players</p>
+          </div>
+          <div class="receiving-money">
+            <p>${{$ctrl.teamOne.receiving.money | number}}</p>
           </div>
         </div>
       </div>
@@ -196,7 +204,7 @@
             <p>Salary</p>
           </div>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.receiving">
+        <div class="player-container" ng-repeat="player in $ctrl.teamTwo.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
@@ -207,16 +215,24 @@
             <p>{{player.contract.yearByYear.length}} years</p>
           </div>
         </div>
+        <div class="receiving-summary">
+          <div class="receiving-number">
+            <p>Acquiring {{$ctrl.teamTwo.receiving.players.length}} players</p>
+          </div>
+          <div class="receiving-money">
+            <p>${{$ctrl.teamTwo.receiving.money | number}}</p>
+          </div>
+        </div>
       </div>
-      <div class="receiving-players">
-        <div class="receiving-labels" ng-show="$ctrl.teamThree.active">
+      <div class="receiving-players" ng-show="$ctrl.teamThree.active">
+        <div class="receiving-labels">
           <div class="player-info">
             <p>Player</p>
           </div>
           <div class="player-contract">
             <p>Salary</p>
           </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamThree.team.receiving">
+        <div class="player-container" ng-repeat="player in $ctrl.teamThree.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
@@ -227,9 +243,17 @@
             <p>{{player.contract.yearByYear.length}} years</p>
           </div>
         </div>
+        <div class="receiving-summary">
+          <div class="receiving-number">
+            <p>Acquiring {{$ctrl.teamThree.receiving.players.length}} players</p>
+          </div>
+          <div class="receiving-money">
+            <p>${{$ctrl.teamThree.receiving.money | number}}</p>
+          </div>
+        </div>
       </div>
-      <div class="receiving-players">
-        <div class="receiving-labels" ng-show="$ctrl.teamFour.active">
+      <div class="receiving-players" ng-show="$ctrl.teamFour.active">
+        <div class="receiving-labels">
           <div class="player-info">
             <p>Player</p>
           </div>
@@ -237,7 +261,7 @@
             <p>Salary</p>
           </div>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamFour.team.receiving">
+        <div class="player-container" ng-repeat="player in $ctrl.teamFour.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
@@ -246,6 +270,14 @@
           <div class="player-contract">
             <p>${{player.contract.yearByYear[0] | number}}</p>
             <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
+        <div class="receiving-summary">
+          <div class="receiving-number">
+            <p>Acquiring {{$ctrl.teamFour.receiving.players.length}} players</p>
+          </div>
+          <div class="receiving-money">
+            <p>${{$ctrl.teamFour.receiving.money | number}}</p>
           </div>
         </div>
       </div>
@@ -256,7 +288,7 @@
       <div class="roster-header">
         <p>{{$ctrl.teamOne.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.roster">
+      <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.roster" ng-click="$ctrl.tradePlayer(player)">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
@@ -272,7 +304,7 @@
       <div class="roster-header">
         <p>{{$ctrl.teamTwo.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.roster">
+      <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.roster" ng-click="$ctrl.tradePlayer(player)">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
