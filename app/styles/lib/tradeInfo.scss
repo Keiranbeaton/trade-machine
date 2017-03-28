@@ -1,0 +1,154 @@
+.machine-container {
+  width: 100%;
+  margin: 0;
+}
+
+.machine-head {
+
+}
+
+.choose-team-label {
+  width: 100%;
+  border-bottom: thin solid black;
+  text-align: center;
+  p {
+    text-align: center;
+  }
+}
+
+.choose-team-dropdowns {
+  border-bottom: thin solid black;
+  text-align: center;
+  padding-top: 10px;
+  div.single-dropdown {
+    text-align: center;
+    display: inline-block;
+    width: 49%;
+  }
+}
+
+.trade-info {
+  border-bottom: thin black solid;
+}
+
+.trade-team {
+  display: inline-block;
+  width: 49%;
+  padding-left: 10px;
+  vertical-align: top;
+  overflow: auto;
+}
+
+.info-left {
+  display: inline-block;
+  width: 80%;
+  h2 {
+    font-size: 1.25rem;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+}
+
+.info-right {
+  display: inline-block;
+  width: 48%;
+  p {
+    display: inline-block;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 0
+  }
+}
+
+.receiving {
+  border-bottom: thin solid black;
+}
+
+.receiving-players {
+  display: inline-block;
+  width: 49%;
+}
+
+.receiving-labels {
+  width: 100%;
+  padding-left: 10px;
+  p {
+    font-size: 1rem;
+  }
+}
+
+.player-container {
+  display: block;
+  width: 100%;
+  padding-left: 10px;
+  border: thin black solid;
+}
+
+.player-info {
+  display: inline-block;
+  text-align: left;
+  width: 58%;
+  p {
+    display: inline-block;
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+
+  p.player-age {
+    padding-left: 5px;
+  }
+
+  p.player-position {
+      padding-right: 5px;
+      border-right: thin black solid;
+  }
+
+  h3 {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+}
+
+.player-contract {
+  display: inline-block;
+  text-align: left;
+  width: 35%;
+  p {
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
+}
+
+.machine-rosters {
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.single-roster {
+  white-space: normal;
+  display: inline-block;
+  width: 50%;
+  margin: 0;
+}
+
+.roster-header {
+  width: 100%;
+  text-align: center;
+  p {
+    text-align: center;
+  }
+}
+
+#choose-team-three {
+  display: none;
+}
+
+#choose-team-four {
+  display: none;
+}
