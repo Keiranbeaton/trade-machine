@@ -1,52 +1,25 @@
-div.player-name {
+.machine-rosters {
+  white-space: nowrap;
+  font-size: 0;
+}
+
+.single-roster {
+  white-space: normal;
   display: inline-block;
-  width: 100%;
-  padding-left: 3%;
+  width: $kb-two-team-width;
+  margin-left: $kb-two-team-gutter;
+  margin-right: $kb-two-team-gutter;
 }
 
-div.player-salary {
-  display: none;
-}
-
-.player {
-  border: thin solid black;
-  vertical-align: middle;
-  width: 100%;
-}
-
-button.trade-button {
-  font-size: 1rem;
-  width: 100%;
-  margin: 0;
-}
-
-p.trade-button {
-  font-size: 1rem;
-  display: inline-block;
+.roster-header {
   width: 100%;
   text-align: center;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-@media (min-width: 768px) {
-  div.player-salary {
-    display: inline-block;
-    padding-right: 5%;
-    text-align: right;
-    width: 31%;
+  border: thin white solid;
+  background: #042f82;
+  color: white;
+  p {
+    font-size: $kb-small-text-phone;
+    text-align: center;
+    margin-bottom: 0;
   }
-
-  div.player-name {
-    width: 60%;
-  }
-
-  button.trade-button {
-    width: 20%;
-  }
-
-  p.trade-button {
-    width: 15%;
-  }
-
 }

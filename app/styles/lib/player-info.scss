@@ -1,0 +1,63 @@
+.player-container {
+  white-space: normal;
+  display: block;
+  width: 100%;
+  padding-left: 2px;
+  border: thin white solid;
+}
+
+.roster-player {
+  background-image: url('../assets/player-background.jpg');
+  background-repeat: repeat-x;
+}
+
+.traded-player {
+  background-image: url('../assets/player-trade-background.jpg');
+  background-repeat: repeat-x;
+}
+
+.player-info {
+  display: inline-block;
+  text-align: left;
+  width: 62%;
+  p {
+    display: inline-block;
+    font-size: $kb-small-text-phone;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+
+  p.player-age {
+    padding-left: 5px;
+  }
+
+  p.player-position {
+      padding-right: 5px;
+      border-right: thin black solid;
+  }
+
+  h3 {
+    font-size: $kb-small-text-phone;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+}
+
+.player-contract {
+  display: inline-block;
+  text-align: left;
+  width: 36%;
+  p {
+    font-size: $kb-small-text-phone;
+    margin-top: 5px;
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
+  h3 {
+    font-size: $kb-small-text-phone;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+}

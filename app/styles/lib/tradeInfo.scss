@@ -1,14 +1,8 @@
 .machine-container {
   width: 100%;
+  white-space: nowrap;
+  font-size: 0;
   margin: 0;
-}
-
-.machine-head {
-
-}
-
-a {
-  color: inherit;
 }
 
 .choose-team-label {
@@ -16,6 +10,7 @@ a {
   border-bottom: thin solid black;
   text-align: center;
   p {
+    font-size: $kb-small-text-phone;
     text-align: center;
   }
 }
@@ -24,73 +19,109 @@ a {
   border-bottom: thin solid black;
   text-align: center;
   padding-top: 10px;
+  white-space: nowrap;
+  font-size: 0;
   div.single-dropdown {
+    white-space: normal;
     text-align: center;
     display: inline-block;
-    width: 49%;
+    width: $kb-two-team-width;
+    margin-left: $kb-two-team-gutter;
+    margin-right: $kb-two-team-gutter;
+  }
+}
+
+
+.trade-buttons {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  button {
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 
 .trade-info {
-  border-bottom: thin black solid;
+  width: 100%;
 }
 
 .trade-team {
+  white-space: normal;
   display: inline-block;
-  width: 49%;
-  padding-left: 10px;
+  width: $kb-two-team-width;
+  margin-left: $kb-two-team-gutter;
+  margin-right: $kb-two-team-gutter;
+  padding-left: 5px;
   vertical-align: top;
   overflow: auto;
+  color: white;
+  border: thin white solid;
+  background: #042f82;
+  h2 {
+    margin-top: 5px;
+  }
 }
 
 .info-left {
   display: inline-block;
   width: 80%;
   h2 {
-    font-size: 1.25rem;
+    font-size: $kb-large-text-phone;
     text-align: left;
-    margin-top: 5px;
     margin-bottom: 0;
   }
 }
 
 .info-right {
   display: inline-block;
-  width: 48%;
+  width: 50%;
   p {
     display: inline-block;
-    font-size: 1rem;
+    font-size: $kb-small-text-phone;
     text-align: center;
     margin-top: 5px;
-    margin-bottom: 0
+    margin-bottom: 0;
   }
 }
 
 .receiving {
-  border-bottom: thin solid black;
   white-space: nowrap;
   font-size: 0;
+  margin: 0;
 }
 
 .receiving-players {
   vertical-align: top;
   display: inline-block;
-  width: 50%;
+  width: $kb-two-team-width;
+  margin-left: $kb-two-team-gutter;
+  margin-right: $kb-two-team-gutter;
 }
 
 .receiving-labels {
   white-space: normal;
   width: 100%;
-  padding-left: 10px;
+  padding-left: 5px;
+  background: black;
+  border: thin white solid;
+  color: white;
   p {
-    font-size: 1rem;
+    font-size: $kb-small-text-phone;
   }
 }
 
 .receiving-summary {
   white-space: normal;
+  display: inline-block;
   width: 100%;
+  margin: 0;
+  border: thin white solid;
+  background: black;
+  color: white;
   p {
+    font-size: $kb-small-text-phone;
     margin-bottom: 0px;
     margin-top: 5px;
   }
@@ -98,86 +129,19 @@ a {
 
 .receiving-number {
   display: inline-block;
-  width: 60%;
+  width: 61%;
   text-align: center;
   p {
-    font-size: 1rem;
+    font-size: $kb-small-text-phone;
   }
 }
 
 .receiving-money {
   display: inline-block;
-  width:30%;
-  p {
-    font-size: 1rem;
-  }
-}
-
-.player-container {
-  white-space: normal;
-  position: relative;
-  display: block;
-  width: 100%;
-  padding-left: 10px;
-  border: thin black solid;
-}
-
-.player-info {
-  display: inline-block;
-  text-align: left;
-  width: 58%;
-  p {
-    display: inline-block;
-    font-size: 1rem;
-    margin-top: 5px;
-    margin-bottom: 0;
-  }
-
-  p.player-age {
-    padding-left: 5px;
-  }
-
-  p.player-position {
-      padding-right: 5px;
-      border-right: thin black solid;
-  }
-
-  h3 {
-    font-size: 1rem;
-    margin-top: 5px;
-    margin-bottom: 0;
-  }
-}
-
-.player-contract {
-  display: inline-block;
-  text-align: left;
-  width: 35%;
-  p {
-    font-size: 1rem;
-    margin-top: 5px;
-    margin-bottom: 0;
-    line-height: 1.1;
-  }
-}
-
-.machine-rosters {
-  white-space: nowrap;
-  font-size: 0;
-}
-
-.single-roster {
-  white-space: normal;
-  display: inline-block;
-  width: 50%;
-  margin: 0;
-}
-
-.roster-header {
-  width: 100%;
+  width:35%;
   text-align: center;
   p {
-    text-align: center;
+    font-size: $kb-small-text-phone;
   }
 }
 

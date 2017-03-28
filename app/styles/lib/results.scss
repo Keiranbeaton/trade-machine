@@ -1,28 +1,83 @@
-div.results-view {
-  background-color: white;
+#results-view {
+  width: 100%;
+  margin: 0;
+}
+
+.results-section {
+  width: 100%;
+  font-size: 0;
+  white-space: nowrap;
+  h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5rem;
+  }
   h5 {
     width: 100%;
+    text-align: center;
+    font-size: 1.25rem;
+  }
+  ul.results-reasons {
+    white-space: normal;
+    width: 100%;
+    li {
+      display: inline-block;
+      font-size: 1rem;
+      width: 100%;
+      padding-left: 5%;
+    }
+  }
+}
+
+.results-success {
+  color: green;
+}
+
+.results-failure {
+  color: red;
+}
+
+.results-button {
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.results-name {
+  width: 100%;
+}
+
+.results-labels, .results-data {
+  width: 100%;
+  div {
+    display: inline-block;
+    width: 33.33%;
+  }
+  p {
+    width: 100%;
+    font-size: 1rem;
     text-align: center;
   }
 }
 
-h3.result-success {
-  text-align: center;
-  color: #008211;
-}
-
-h3.result-failure {
-  text-align: center;
-  color: #b90000;
-}
-
-ul.result-reason {
+.results-players {
   width: 100%;
-  li {
-    width: 100%;
-  }
+  white-space: nowrap;
+  font-size: 0;
 }
 
-div.results-button {
-  text-align: center;
+.results-traded {
+  width: 50%;
+  display: inline-block;
+  vertical-align: top;
+  p.results-traded-label {
+    width: 100%;
+    font-size: 1rem;
+    text-align: center;
+  }
+  h3 {
+    text-align: left;
+    font-size: 1rem;
+  }
 }

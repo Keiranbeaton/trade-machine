@@ -5,76 +5,90 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid results-view" ng-show="$ctrl.tradeComplete">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h3 class="result-success" ng-show="$ctrl.tradeResult.success">Trade Succeeds</h3>
-      <h3 class="result-failure" ng-show="!$ctrl.tradeResult.success">Trade Fails</h3>
-    </div>
+<div id="results-view" ng-show="$ctrl.tradeComplete">
+  <div class="results-section">
+    <h3 class="results-success" ng-show="$ctrl.tradeResult.success">Trade Succeeds</h3>
+    <h3 class="results-failure" ng-show="!$ctrl.tradeResult.success">Trade Fails</h3>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h5 ng-show="!$ctrl.tradeResult.success">Trade Failed For The Following Reasons</h5>
-      <ul class="result-reasons">
-        <li ng-repeat="reason in $ctrl.tradeResult.reasonsForFailing">{{reason}}</li>
-      </ul>
-    </div>
+  <div class="results-section" ng-show="!$ctrl.tradeResult.success">
+    <h5>Trade Failed For The Following Reasons</h5>
+    <ul class="results-reasons">
+      <li ng-repeat="reason in $ctrl.tradeResult.reasonsForFailing">{{reason}}</li>
+    </ul>
   </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 results-button">
+  <div class="results-section">
+    <div class="results-button">
       <button type="button" class="btn btn-primary" ng-click="$ctrl.resetTeams()">Reset</button>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 results-button">
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.adjustTrade()">Adjust Trade</button>
+    <div class="results-button">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.adjustTrade()"> Adjust Trade</button>
     </div>
   </div>
-  <div ng-repeat="team in $ctrl.tradeResult.involved" class="team-results-container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3 class="result-name">{{team.team}} Recap</h3>
+  <div ng-repeat="team in $ctrl.tradeResult.involved" class="results-section">
+    <div class="results-name">
+      <h3>{{team.team}} Recap</h3>
+    </div>
+    <div class="results-labels">
+      <div>
+        <p><b>Change in Salary</b></p>
+      </div>
+      <div>
+        <p><b>Updated Cap Room</b></p>
+      </div>
+      <div>
+        <p><b>Updated Salary</b></p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Change in Salary</b></p>
+    <div class="results-data">
+      <div>
+        <p>{{team.capChangeDisplay}} ${{team.capChange | number}}</p>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Updated Cap Room</b></p>
+      <div ng-style="team.underFinalCap">
+        <p>{{team.finalCapRoomDisplay}}{{team.finalCapRoom | number}}</p>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Updated Salary</b></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.capChange}}</p>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.finalCapRoom}}</p>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.finalSalary}}</p>
+      <div>
+        <p>${{team.finalSalary | number}}</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-array">
-        <p class="result-label"><b>Traded Away:</b></p>
-        <p ng-repeat="player in team.playersLost">{{player.firstName}} {{player.lastName}}</p>
+    <div class="results-players">
+      <div class="results-traded">
+        <p class="results-traded-label"><b>Traded Away:</b></p>
+        <div class="player-container traded-player" ng-repeat="player in team.playersLost">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-array">
-        <p><b>Traded For:</b></p>
-        <p ng-repeat="player in team.newPlayers">{{player.firstName}} {{player.lastName}}</p>
+      <div class="results-traded">
+        <p class="results-traded-label"><b>Traded For:</b></p>
+        <div class="player-container traded-player" ng-repeat="player in team.newPlayers">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="machine-container">
+<div class="machine-container" ng-hide="$ctrl.tradeComplete">
   <div class="machine-container machine-head">
     <div class="machine-container choose-team-label">
       <p>Select teams to include them in a trade</p>
     </div>
     <div class="machine-container choose-team-dropdowns">
-      <div class="btn-group" uib-dropdown>
+      <div class="single-dropdown" uib-dropdown>
         <button id="choose-team-one" type="button" class="btn btn-default" uib-dropdown-toggle> {{$ctrl.teamOne.team.name}} <span class="caret"></span></button>
         <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-one">
           <li role="menuitem"><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
@@ -111,144 +125,125 @@
         </ul>
       </div>
     </div>
-    <div class="machine-container trade-info">
-      <div class="trade-team">
-        <div class="info-left" ng-show="$ctrl.teamOne.active">
-          <h2>{{$ctrl.teamOne.team.name}}</h2>
+    <div class="trade-buttons" ng-show="$ctrl.activeList.length > 1">
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.submitTrade()">Evaluate Trade</button>
+      <button type="button" class="btn btn-primary" ng-click="$ctrl.resetTeams()">Reset Trade</button>
+    </div>
+  </div>
+  <div class="machine-container trade-info">
+    <div class="trade-team">
+      <div class="info-left" ng-show="$ctrl.teamOne.active">
+        <h2>{{$ctrl.teamOne.team.name}}</h2>
+      </div>
+      <div class="info-right" ng-show="$ctrl.teamOne.active">
+        <p> Cap Room: </p>
+        <p> {{$ctrl.teamOne.team.capDisplay}}{{$ctrl.teamOne.team.capRoom | number}} </p>
+      </div>
+      <div class="info-right" ng-show="$ctrl.teamOne.active">
+        <p> Tax Room: </p>
+        <p> {{$ctrl.teamOne.team.taxDisplay}}{{$ctrl.teamOne.team.taxRoom | number}} </p>
+      </div>
+    </div>
+    <div class="trade-team">
+      <div class="info-left" ng-show="$ctrl.teamTwo.active">
+        <h2>{{$ctrl.teamTwo.team.name}}</h2>
+      </div>
+      <div class="info-right" ng-show="$ctrl.teamTwo.active">
+        <p> Cap Room: </p>
+        <p> {{$ctrl.teamTwo.team.capDisplay}}{{$ctrl.teamTwo.team.capRoom | number}} </p>
+      </div>
+      <div class="info-right" ng-show="$ctrl.teamTwo.active">
+        <p> Tax Room: </p>
+        <p> {{$ctrl.teamTwo.team.taxDisplay}}{{$ctrl.teamTwo.team.taxRoom | number}} </p>
+      </div>
+    </div>
+    <div class="trade-team" ng-show="$ctrl.teamThree.active">
+      <div class="info-left">
+        <h2>{{$ctrl.teamThree.team.name}}</h2>
+      </div>
+      <div class="info-right">
+        <p> Cap Room: </p>
+        <p> {{$ctrl.teamThree.team.capDisplay}}{{$ctrl.teamThree.team.capRoom | number}} </p>
+      </div>
+      <div class="info-right">
+        <p> Tax Room: </p>
+        <p> {{$ctrl.teamThree.team.taxDisplay}}{{$ctrl.teamThree.team.taxRoom | number}} </p>
+      </div>
+    </div>
+    <div class="trade-team" ng-show="$ctrl.teamFour.active">
+      <div class="info-left">
+        <h2>{{$ctrl.teamFour.team.name}}</h2>
+      </div>
+      <div class="info-right">
+        <p> Cap Room: </p>
+        <p> {{$ctrl.teamFour.team.capDisplay}}{{$ctrl.teamFour.team.capRoom | number}} </p>
+      </div>
+      <div class="info-right">
+        <p> Tax Room: </p>
+        <p> {{$ctrl.teamFour.team.taxDisplay}}{{$ctrl.teamFour.team.taxRoom | number}} </p>
+      </div>
+    </div>
+  </div>
+  <div class="machine-container receiving">
+    <div class="receiving-players">
+      <div class="receiving-labels" ng-show="$ctrl.teamOne.active">
+        <div class="player-info">
+          <p>Player</p>
         </div>
-        <div class="info-right" ng-show="$ctrl.teamOne.active">
-          <p> Cap Room: </p>
-          <p> {{$ctrl.teamOne.team.capDisplay}}{{$ctrl.teamOne.team.capRoom | number}} </p>
-        </div>
-        <div class="info-right" ng-show="$ctrl.teamOne.active">
-          <p> Tax Room: </p>
-          <p> {{$ctrl.teamOne.team.taxDisplay}}{{$ctrl.teamOne.team.taxRoom | number}} </p>
+        <div class="player-contract">
+          <p>Salary</p>
         </div>
       </div>
-      <div class="trade-team">
-        <div class="info-left" ng-show="$ctrl.teamTwo.active">
-          <h2>{{$ctrl.teamTwo.team.name}}</h2>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamOne.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
         </div>
-        <div class="info-right" ng-show="$ctrl.teamTwo.active">
-          <p> Cap Room: </p>
-          <p> {{$ctrl.teamTwo.team.capDisplay}}{{$ctrl.teamTwo.team.capRoom | number}} </p>
-        </div>
-        <div class="info-right" ng-show="$ctrl.teamTwo.active">
-          <p> Tax Room: </p>
-          <p> {{$ctrl.teamTwo.team.taxDisplay}}{{$ctrl.teamTwo.team.taxRoom | number}} </p>
-        </div>
-      </div>
-      <div class="trade-team" ng-show="$ctrl.teamThree.active">
-        <div class="info-left">
-          <h2>{{$ctrl.teamThree.team.name}}</h2>
-        </div>
-        <div class="info-right">
-          <p> Cap Room: </p>
-          <p> {{$ctrl.teamThree.team.capDisplay}}{{$ctrl.teamThree.team.capRoom | number}} </p>
-        </div>
-        <div class="info-right">
-          <p> Tax Room: </p>
-          <p> {{$ctrl.teamThree.team.taxDisplay}}{{$ctrl.teamThree.team.taxRoom | number}} </p>
-        </div>
-      </div>
-      <div class="trade-team" ng-show="$ctrl.teamFour.active">
-        <div class="info-left">
-          <h2>{{$ctrl.teamFour.team.name}}</h2>
-        </div>
-        <div class="info-right">
-          <p> Cap Room: </p>
-          <p> {{$ctrl.teamFour.team.capDisplay}}{{$ctrl.teamFour.team.capRoom | number}} </p>
-        </div>
-        <div class="info-right">
-          <p> Tax Room: </p>
-          <p> {{$ctrl.teamFour.team.taxDisplay}}{{$ctrl.teamFour.team.taxRoom | number}} </p>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>
     </div>
-    <div class="machine-container receiving">
-      <div class="receiving-players">
-        <div class="receiving-labels" ng-show="$ctrl.teamOne.active">
-          <div class="player-info">
-            <p>Player</p>
-          </div>
-          <div class="player-contract">
-            <p>Salary</p>
-          </div>
+    <div class="receiving-players">
+      <div class="receiving-labels" ng-show="$ctrl.teamTwo.active">
+        <div class="player-info">
+          <p>Player</p>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamOne.receiving.players">
-          <div class="player-info">
-            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
-            <p class="player-position">{{player.position}}</p>
-            <p class="player-age">{{player.age}} years old</p>
-          </div>
-          <div class="player-contract">
-            <p>${{player.contract.yearByYear[0] | number}}</p>
-            <p>{{player.contract.yearByYear.length}} years</p>
-          </div>
-        </div>
-        <div class="receiving-summary">
-          <div class="receiving-number">
-            <p>Acquiring {{$ctrl.teamOne.receiving.players.length}} players</p>
-          </div>
-          <div class="receiving-money">
-            <p>${{$ctrl.teamOne.receiving.money | number}}</p>
-          </div>
+        <div class="player-contract">
+          <p>Salary</p>
         </div>
       </div>
-      <div class="receiving-players">
-        <div class="receiving-labels" ng-show="$ctrl.teamTwo.active">
-          <div class="player-info">
-            <p>Player</p>
-          </div>
-          <div class="player-contract">
-            <p>Salary</p>
-          </div>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamTwo.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamTwo.receiving.players">
-          <div class="player-info">
-            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
-            <p class="player-position">{{player.position}}</p>
-            <p class="player-age">{{player.age}} years old</p>
-          </div>
-          <div class="player-contract">
-            <p>${{player.contract.yearByYear[0] | number}}</p>
-            <p>{{player.contract.yearByYear.length}} years</p>
-          </div>
-        </div>
-        <div class="receiving-summary">
-          <div class="receiving-number">
-            <p>Acquiring {{$ctrl.teamTwo.receiving.players.length}} players</p>
-          </div>
-          <div class="receiving-money">
-            <p>${{$ctrl.teamTwo.receiving.money | number}}</p>
-          </div>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>
-      <div class="receiving-players" ng-show="$ctrl.teamThree.active">
-        <div class="receiving-labels">
-          <div class="player-info">
-            <p>Player</p>
-          </div>
-          <div class="player-contract">
-            <p>Salary</p>
-          </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamThree.receiving.players">
+    </div>
+    <div class="receiving-players" ng-show="$ctrl.teamThree.active">
+      <div class="receiving-labels">
+        <div class="player-info">
+          <p>Player</p>
+        </div>
+        <div class="player-contract">
+          <p>Salary</p>
+        </div>
+        <div class="player-container traded-player" ng-repeat="player in $ctrl.teamThree.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
             <p class="player-age">{{player.age}} years old</p>
           </div>
           <div class="player-contract">
-            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
             <p>{{player.contract.yearByYear.length}} years</p>
-          </div>
-        </div>
-        <div class="receiving-summary">
-          <div class="receiving-number">
-            <p>Acquiring {{$ctrl.teamThree.receiving.players.length}} players</p>
-          </div>
-          <div class="receiving-money">
-            <p>${{$ctrl.teamThree.receiving.money | number}}</p>
           </div>
         </div>
       </div>
@@ -261,23 +256,15 @@
             <p>Salary</p>
           </div>
         </div>
-        <div class="player-container" ng-repeat="player in $ctrl.teamFour.receiving.players">
+        <div class="player-container traded-player" ng-repeat="player in $ctrl.teamFour.receiving.players">
           <div class="player-info">
             <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
             <p class="player-position">{{player.position}}</p>
             <p class="player-age">{{player.age}} years old</p>
           </div>
           <div class="player-contract">
-            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
             <p>{{player.contract.yearByYear.length}} years</p>
-          </div>
-        </div>
-        <div class="receiving-summary">
-          <div class="receiving-number">
-            <p>Acquiring {{$ctrl.teamFour.receiving.players.length}} players</p>
-          </div>
-          <div class="receiving-money">
-            <p>${{$ctrl.teamFour.receiving.money | number}}</p>
           </div>
         </div>
       </div>
@@ -285,65 +272,97 @@
   </div>
   <div class="machine-rosters">
     <div class="single-roster">
-      <div class="roster-header">
+      <div class="receiving-summary" ng-show="$ctrl.teamOne.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamOne.receiving.players.length}} players</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamOne.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamOne.active">
         <p>{{$ctrl.teamOne.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.roster" ng-click="$ctrl.tradePlayer(player)">
+      <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.roster" ng-click="$ctrl.tradePlayer(player)" ng-class="player.background">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
           <p class="player-age">{{player.age}} years old</p>
         </div>
         <div class="player-contract">
-          <p>${{player.contract.yearByYear[0] | number}}</p>
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
           <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>
     </div>
     <div class="single-roster">
-      <div class="roster-header">
+      <div class="receiving-summary" ng-show="$ctrl.teamTwo.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamTwo.receiving.players.length}} players</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamTwo.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamTwo.active">
         <p>{{$ctrl.teamTwo.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.roster" ng-click="$ctrl.tradePlayer(player)">
+      <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.roster" ng-click="$ctrl.tradePlayer(player)" ng-class="player.background">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
           <p class="player-age">{{player.age}} years old</p>
         </div>
         <div class="player-contract">
-          <p>${{player.contract.yearByYear[0] | number}}</p>
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
           <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>
     </div>
     <div class="single-roster" ng-show="$ctrl.teamThree.active">
-      <div class="roster-header">
+      <div class="receiving-summary" ng-show="$ctrl.teamThree.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamThree.receiving.players.length}} players</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamThree.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamThree.active">
         <p>{{$ctrl.teamThree.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamThree.team.roster">
+      <div class="player-container" ng-repeat="player in $ctrl.teamThree.team.roster" ng-click="$ctrl.tradePlayer(player)" ng-class="player.background">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
           <p class="player-age">{{player.age}} years old</p>
         </div>
         <div class="player-contract">
-          <p>${{player.contract.yearByYear[0] | number}}</p>
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
           <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>
     </div>
     <div class="single-roster" ng-show="$ctrl.teamFour.active">
-      <div class="roster-header">
+      <div class="receiving-summary" ng-show="$ctrl.teamFour.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamFour.receiving.players.length}} players</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamFour.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamFour.active">
         <p>{{$ctrl.teamFour.team.name}} roster</p>
       </div>
-      <div class="player-container" ng-repeat="player in $ctrl.teamFour.team.roster">
+      <div class="player-container" ng-repeat="player in $ctrl.teamFour.team.roster" ng-click="$ctrl.tradePlayer(player)" ng-class="player.background">
         <div class="player-info">
           <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
           <p class="player-position">{{player.position}}</p>
           <p class="player-age">{{player.age}} years old</p>
         </div>
         <div class="player-contract">
-          <p>${{player.contract.yearByYear[0] | number}}</p>
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
           <p>{{player.contract.yearByYear.length}} years</p>
         </div>
       </div>

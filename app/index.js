@@ -13,7 +13,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   $rootScope.salaryCap = {year: '2016-17', cap: 94140000, tax: 113290000};
   $rootScope.exampleTeam = {
     id: 1,
-    name: 'Example',
+    name: 'Minnesota',
     abbreviation: 'Ex',
     totalSalary: 100000000,
     draftPicks: [{round: 1, year: 2018, conditions: 'Top 10 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 2}],
@@ -37,7 +37,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   };
   $rootScope.exampleTwo = {
     id: 2,
-    name: 'Example2',
+    name: 'Oklahoma City',
     abbreviation: 'Aex',
     totalSalary: 110000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 15 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 2}],
@@ -61,7 +61,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   };
   $rootScope.exampleThree = {
     id: 3,
-    name: 'Example3',
+    name: 'New Orleans',
     abbreviation: 'Tex',
     totalSalary: 82000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 15 Protected', originalOwnerId: 1}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 3}, {round:1, year: 2018, conditions: 'None', originalOwnerId:3}],
@@ -85,7 +85,7 @@ kbTradeMachine.run(['$rootScope', function($rootScope) {
   };
   $rootScope.exampleFour = {
     id: 4,
-    name: 'Example4',
+    name: 'San Antonio',
     abbreviation: 'Fex',
     totalSalary: 120000000,
     draftPicks: [{round: 1, year: 2019, conditions: 'Top 5 Protected', originalOwnerId: 2}, {round: 2, year: 2018, conditions: 'None', originalOwnerId: 4}],
