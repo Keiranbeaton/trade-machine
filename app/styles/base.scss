@@ -1,36 +1,7 @@
 @import './vendors/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 @import './lib/themes.scss';
-
-html, body {
-  height: 100%;
-  width: 100%;
-  margin:0;
-  padding: 0;
-  overflow-x: hidden;
-  color: white;
-  background: rgba(#9d9d9d, 0.6);
-}
-
-nav.navbar-default {
-  background: #474b50;
-  color: white;
-  p.navbar-brand {
-    color: white;
-  }
-}
-
-ul, ol, li {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-a {
-  color: inherit;
-}
-
-@import './lib/tradeInfo.scss';
+@import './lib/page-standard.scss';
+@import './lib/trade-info.scss';
 @import './lib/player-info.scss';
 @import './lib/roster.scss';
 @import './lib/results.scss';

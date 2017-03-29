@@ -14,10 +14,10 @@
   width: 100%;
   text-align: center;
   border: thin white solid;
-  background: #474b50;
+  background: $kb-color1;
   color: white;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     text-align: center;
     margin-bottom: 0;
   }

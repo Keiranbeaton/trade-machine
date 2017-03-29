@@ -8,18 +8,25 @@
 .choose-team-label {
   width: 100%;
   text-align: center;
+  margin-bottom: 10px;
   p {
-    font-size: $kb-large-text-phone;
+    font-size: 1.5rem;
     text-align: center;
   }
 }
 
 .choose-team-dropdowns {
   text-align: center;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
   padding-top: 10px;
+  padding-bottom: 10px;
+  background: $kb-color1;
+  border: thin white solid;
+  border-radius: 5px;
   white-space: nowrap;
   font-size: 0;
-  margin-bottom: 5px;
   div.single-dropdown {
     white-space: normal;
     text-align: center;
@@ -31,31 +38,31 @@
 
 
 .trade-buttons {
-  width: 100%;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 5%;
   margin-bottom: 10px;
+  min-height: 25.33px;
   button {
     margin-left: 5%;
     margin-right: 5%;
   }
 }
 
-.kb-btn, .kb-btn-two {
-   padding: 5px 10px;
-   background: #474b50;
-   -webkit-border-radius: 3px;
-   -moz-border-radius: 3px;
-   border-radius: 3px;
-   font-size: $kb-small-text-phone;
+ .kb-btn-two {
    color: white;
-   border: thin solid #474b50;
-   text-decoration: none;
-   vertical-align: middle;
+   border: thin solid $kb-color1;
    &:hover {
      border: thin solid white;
    }
-}
+ }
+
+ .kb-btn-team {
+   background: $kb-color3;
+   border: thin solid $kb-color3;
+   &:hover {
+     border: thin solid white;
+   }
+ }
 
 .down-arrow {
   display: inline-block;
@@ -84,7 +91,7 @@
   overflow: auto;
   color: white;
   border: thin white solid;
-  background: #474b50;
+  background: $kb-color1;
   h2 {
     margin-top: 5px;
   }
@@ -95,7 +102,7 @@
   display: inline-block;
   width: 80%;
   h2 {
-    font-size: $kb-large-text-phone;
+    font-size: $kb-large-text;
     text-align: left;
     margin-bottom: 0;
   }
@@ -103,15 +110,23 @@
 
 .info-right {
   display: inline-block;
-  width: 45%;
+  width: 50%;
   p {
-    display: inline-block;
-    font-size: $kb-small-text-phone;
-    text-align: center;
+    font-size: $kb-small-text;
+    text-align: left;
     margin-top: 5px;
     margin-bottom: 0;
   }
 }
+
+.info-inline {
+  display: inline-block;
+}
+
+.info-block {
+  display: block;
+}
+
 
 .receiving {
   white-space: nowrap;
@@ -130,11 +145,11 @@
   white-space: normal;
   width: 100%;
   padding-left: 5px;
-  background: black;
+  background: $kb-color2;
   border: thin white solid;
   color: white;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
   }
 }
 
@@ -144,10 +159,10 @@
   width: 100%;
   margin: 0;
   border: thin white solid;
-  background: black;
+  background: $kb-color2;
   color: white;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     margin-bottom: 0px;
     margin-top: 5px;
   }
@@ -158,7 +173,7 @@
   width: 61%;
   text-align: center;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
   }
 }
 
@@ -167,7 +182,7 @@
   width:35%;
   text-align: center;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
   }
 }
 
@@ -185,5 +200,8 @@
   }
   #choose-team-four {
     display: inline-block;
+  }
+  .choose-team-label p {
+    font-size: 2rem;
   }
 }

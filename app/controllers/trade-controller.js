@@ -25,23 +25,30 @@ module.exports = (app) => {
     this.twoTeam = 'two-team-width';
     this.threeTeam = 'three-team-width';
     this.fourTeam = 'four-team-width';
+    this.infoDisplay = 'info-inline';
+    this.infoInline = 'info-inline';
+    this.infoBlock = 'info-block';
 
     this.setSize = function() {
       if (this.activeList.length < 2) {
         this.width = this.twoTeam;
         this.dropDownWidth = this.twoTeam;
+        this.infoDisplay = this.infoInline;
       }
       if (this.activeList.length === 2) {
         this.width = this.twoTeam;
         this.dropDownWidth = this.threeTeam;
+        this.infoDisplay = this.infoInline;
       }
       if(this.activeList.length === 3) {
         this.width = this.threeTeam;
         this.dropDownWidth = this.fourTeam;
+        this.infoDisplay = this.infoBlock;
       }
       if(this.activeList.length === 4) {
         this.width = this.fourTeam;
         this.dropDownWidth = this.fourTeam;
+        this.infoDisplay = this.infoBlock;
       }
     };
 
@@ -159,6 +166,10 @@ module.exports = (app) => {
       let index = this.teams.indexOf(slot.team);
       this.teams[index].inTrade = false;
       this.teams[index].background = this.teamStyling;
+      this.teams[index].roster.forEach((player) => {
+        player.inTrade = false;
+        player.chooseDestination = false;
+      });
       slot.team = {name: 'Add Team'};
       slot.active = false;
       slot.sending = {picks: [], players: [], tradeExceptions: [], money: 0};
@@ -298,10 +309,10 @@ module.exports = (app) => {
         let capChange = salaryGained - salaryLost;
         let finalSalary = team.team.totalSalary + capChange;
         if (capChange > 0 ) {
-          capChangeDisplay = 'Increased By';
+          capChangeDisplay = 'Increased';
           capChange = Math.abs(capChange);
         } else {
-          capChangeDisplay = 'Reduced By';
+          capChangeDisplay = 'Reduced';
           capChange = Math.abs(capChange);
         }
         let finalCapRoom = this.salaryCap - finalSalary;
@@ -326,7 +337,7 @@ module.exports = (app) => {
         //   tradeResult = {success: false, reason: 'Traded Player Exceptions cannot be traded for a player whose salary exceeds their value'};
         // }
         // Prevents teams over the salary cap from receiving more than 125% of their current salary + $100000 as per league rules
-        if (finalSalary > this.salaryCap && (salaryGained > salaryLost * 1.25 + 100000)) {
+        if (finalSalary > this.salaryCap && (salaryGained >= salaryLost * 1.25 + 100000)) {
           tradeResult.success = false;
           failingPoints = team.team.name + ' is over the salary cap, and cannot receive in excess of 125% of the salary they sent plus $100,000';
         }
@@ -349,6 +360,8 @@ module.exports = (app) => {
         tradeResult.newPlayers = playersReceived;
         tradeResult.finalSalary = finalSalary;
         tradeResult.problems = failingPoints;
+        tradeResult.salaryGained = salaryGained;
+        tradeResult.salaryLost = salaryLost;
         return tradeResult;
       }
       return {active: false};

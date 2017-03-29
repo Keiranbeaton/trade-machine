@@ -24,7 +24,7 @@
   width: 62%;
   p {
     display: inline-block;
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     margin-top: 5px;
     margin-bottom: 0;
   }
@@ -39,7 +39,7 @@
   }
 
   h3 {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 0;
@@ -57,10 +57,13 @@
     display: inline-block;
     width: 25%;
     font-size: .75rem;
-    height: 34px;
+    font-weight: bold;
+    height: 35px;
     text-align: center;
     vertical-align: middle;
     padding: 0;
+    background-image: url('../assets/player-background.jpg');
+    background-repeat: repeat-x;
   }
 }
 
@@ -69,15 +72,19 @@
   text-align: left;
   width: 36%;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     margin-top: 5px;
     margin-bottom: 0;
     line-height: 1.1;
   }
   h3 {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-small-text;
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 0;
   }
+}
+
+@media (min-width: 768px) {
+
 }
