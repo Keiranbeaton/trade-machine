@@ -7,25 +7,23 @@
 
 .choose-team-label {
   width: 100%;
-  border-bottom: thin solid black;
   text-align: center;
   p {
-    font-size: $kb-small-text-phone;
+    font-size: $kb-large-text-phone;
     text-align: center;
   }
 }
 
 .choose-team-dropdowns {
-  border-bottom: thin solid black;
   text-align: center;
   padding-top: 10px;
   white-space: nowrap;
   font-size: 0;
+  margin-bottom: 5px;
   div.single-dropdown {
     white-space: normal;
     text-align: center;
     display: inline-block;
-    width: $kb-two-team-width;
     margin-left: $kb-two-team-gutter;
     margin-right: $kb-two-team-gutter;
   }
@@ -43,26 +41,55 @@
   }
 }
 
+.kb-btn, .kb-btn-two {
+   padding: 5px 10px;
+   background: #474b50;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+   font-size: $kb-small-text-phone;
+   color: white;
+   border: thin solid #474b50;
+   text-decoration: none;
+   vertical-align: middle;
+   &:hover {
+     border: thin solid white;
+   }
+}
+
+.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid $kb-button-text;
+}
+
 .trade-info {
   width: 100%;
 }
 
-.trade-team {
-  white-space: normal;
+.team-wrapper {
   display: inline-block;
-  width: $kb-two-team-width;
   margin-left: $kb-two-team-gutter;
   margin-right: $kb-two-team-gutter;
+}
+
+.trade-team {
+  white-space: normal;
+  width: 100%;
   padding-left: 5px;
   vertical-align: top;
   overflow: auto;
   color: white;
   border: thin white solid;
-  background: #042f82;
+  background: #474b50;
   h2 {
     margin-top: 5px;
   }
 }
+
 
 .info-left {
   display: inline-block;
@@ -76,7 +103,7 @@
 
 .info-right {
   display: inline-block;
-  width: 50%;
+  width: 45%;
   p {
     display: inline-block;
     font-size: $kb-small-text-phone;
@@ -95,7 +122,6 @@
 .receiving-players {
   vertical-align: top;
   display: inline-block;
-  width: $kb-two-team-width;
   margin-left: $kb-two-team-gutter;
   margin-right: $kb-two-team-gutter;
 }
@@ -151,4 +177,13 @@
 
 #choose-team-four {
   display: none;
+}
+
+@media (min-width: 768px) {
+  #choose-team-three {
+    display: inline-block;
+  }
+  #choose-team-four {
+    display: inline-block;
+  }
 }

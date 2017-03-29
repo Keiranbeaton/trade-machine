@@ -6,7 +6,6 @@
 .single-roster {
   white-space: normal;
   display: inline-block;
-  width: $kb-two-team-width;
   margin-left: $kb-two-team-gutter;
   margin-right: $kb-two-team-gutter;
 }
@@ -15,7 +14,7 @@
   width: 100%;
   text-align: center;
   border: thin white solid;
-  background: #042f82;
+  background: #474b50;
   color: white;
   p {
     font-size: $kb-small-text-phone;

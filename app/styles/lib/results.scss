@@ -1,6 +1,6 @@
 #results-view {
   width: 100%;
-  margin: 0;
+  padding: 5px;
 }
 
 .results-section {
@@ -46,6 +46,16 @@
 
 .results-name {
   width: 100%;
+  h3 {
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  h3.success {
+    color: green;
+  }
+  h3.failed {
+    color: red;
+  }
 }
 
 .results-labels, .results-data {

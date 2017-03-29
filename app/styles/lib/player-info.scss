@@ -2,8 +2,9 @@
   white-space: normal;
   display: block;
   width: 100%;
-  padding-left: 2px;
   border: thin white solid;
+  color: black;
+  cursor: pointer;
 }
 
 .roster-player {
@@ -19,6 +20,7 @@
 .player-info {
   display: inline-block;
   text-align: left;
+  padding-left: 2px;
   width: 62%;
   p {
     display: inline-block;
@@ -41,6 +43,24 @@
     font-weight: bold;
     margin-top: 5px;
     margin-bottom: 0;
+  }
+}
+
+.player-standard {
+  width: 100%;
+}
+
+.choose-destination {
+  vertical-align: middle;
+  width: 100%;
+  .kb-send-btn {
+    display: inline-block;
+    width: 25%;
+    font-size: .75rem;
+    height: 34px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
   }
 }
 
