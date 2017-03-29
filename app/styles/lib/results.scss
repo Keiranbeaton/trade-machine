@@ -10,6 +10,11 @@
       font-size: .9rem;
     }
   }
+  .player-contract {
+    p {
+      font-size: .9rem;
+    }
+  }
 }
 
 .results-section {
@@ -204,6 +209,11 @@
     }
     .player-info {
       h3 {
+        font-size: $kb-small-text;
+      }
+    }
+    .player-contract {
+      p {
         font-size: $kb-small-text;
       }
     }
