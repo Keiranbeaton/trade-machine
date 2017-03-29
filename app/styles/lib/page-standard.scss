@@ -37,3 +37,35 @@ button {
    text-decoration: none;
    vertical-align: middle;
  }
+
+
+.dropdown-menu {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 0;
+  border: solid thin white;
+  background-color: $kb-color3;
+  border-radius: 5px;
+  > li {
+    > a {
+      background: none;
+      color: white;
+    }
+  }
+  li.first-li {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    a {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  }
+  li.last-li {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    a {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+  }
+}
