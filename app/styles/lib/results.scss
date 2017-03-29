@@ -1,21 +1,45 @@
 #results-view {
-  width: 100%;
-  padding: 5px;
+  padding: 10px 5px 10px 5px;
+  background-color: $kb-color1;
+  border: thin solid white;
+  border-radius: 5px;
+  margin-bottom: 5%;
+  .player-info {
+    h3 {
+      text-align: left;
+      font-size: .9rem;
+    }
+  }
 }
 
 .results-section {
   width: 100%;
   font-size: 0;
   white-space: nowrap;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-bottom: 3%;
   h3 {
+    margin-top: 0;
+    margin-bottom: 0;
     width: 100%;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  h3.results-success, h3.results-failure {
+    width: 100%;
+    text-align: center;
+    padding: 2% 5% 2% 5%;
+    font-size: 2.5rem;
+    background: $kb-color1;
   }
   h5 {
     width: 100%;
     text-align: center;
     font-size: 1.25rem;
+    color: red;
+    text-decoration: underline;
   }
   ul.results-reasons {
     white-space: normal;
@@ -37,12 +61,34 @@
   color: red;
 }
 
-.results-button {
-  width: 50%;
+.results-buttons {
+  font-size: 0;
+  white-space: nowrap;
+  min-width: 70%;
+  margin: 2% 15%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: thin solid white;
+  border-radius: 5px;
+  background: $kb-color3;
   display: inline-block;
   text-align: center;
   margin-top: 10px;
+  .results-btn {
+    width: 50%;
+    display: inline-block;
+    white-space: normal;
+  }
 }
+
+ .kb-btn {
+   color: white;
+   background: $kb-color1;
+   border: thin solid $kb-color1;
+   &:hover {
+     border: thin solid white;
+   }
+ }
 
 .results-name {
   width: 100%;
@@ -56,6 +102,7 @@
   h3.failed {
     color: red;
   }
+  margin-bottom: 2%;
 }
 
 .results-labels, .results-data {
@@ -66,8 +113,14 @@
   }
   p {
     width: 100%;
-    font-size: 1rem;
+    font-size: $kb-small-text;
     text-align: center;
+  }
+}
+
+.results-labels {
+  p {
+    text-decoration: underline;
   }
 }
 
@@ -83,11 +136,86 @@
   vertical-align: top;
   p.results-traded-label {
     width: 100%;
-    font-size: 1rem;
+    font-size: $kb-small-text;
     text-align: center;
   }
-  h3 {
-    text-align: left;
-    font-size: 1rem;
+}
+
+.results-player-labels {
+  white-space: normal;
+  width: 100%;
+  padding-left: 5px;
+  background: $kb-color2;
+  border: thin white solid;
+  color: white;
+  p {
+    font-size: $kb-small-text;
+  }
+}
+
+.results-summary-container {
+  width: 100%;
+  font-size: 0;
+  white-space: nowrap;
+  padding-bottom: 5%;
+}
+
+.results-summary {
+  white-space: normal;
+  display: inline-block;
+  width: 50%;
+  margin: 0;
+  border: thin white solid;
+  background: $kb-color2;
+  color: white;
+  p {
+    font-size: $kb-small-text;
+    margin-bottom: 0px;
+    margin-top: 5px;
+  }
+}
+
+.results-number {
+  display: inline-block;
+  width: 62%;
+  padding-left: 2px;
+  text-align: left;
+  p {
+    font-size: .9rem;;
+  }
+}
+
+.results-money {
+  display: inline-block;
+  width: 36%;
+  text-align: left;
+  p {
+    font-size: $kb-small-text;
+  }
+}
+
+@media (min-width: 768px) {
+  #results-view {
+    width: 84%;
+    margin-left: 7%;
+    margin-right: 7%;
+    li {
+      font-size: 1.25rem;
+    }
+    .player-info {
+      h3 {
+        font-size: $kb-small-text;
+      }
+    }
+    .results-number {
+      p {
+        font-size: $kb-small-text;
+      }
+    }
+    .results-labels, .results-data {
+      p {
+        font-size: 1.5rem;
+      }
+    }
   }
 }

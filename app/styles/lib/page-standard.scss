@@ -1,0 +1,39 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  margin:0;
+  padding: 0;
+  overflow-x: hidden;
+  color: white;
+  background: $kb-color3;
+}
+
+nav.navbar-default {
+  background: #474b50;
+  color: white;
+  p.navbar-brand {
+    color: white;
+  }
+}
+
+ul, ol, li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+   padding: 5px 10px;
+   background: $kb-color1;
+   -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+   border-radius: 3px;
+   font-size: $kb-small-text;
+   text-decoration: none;
+   vertical-align: middle;
+ }
