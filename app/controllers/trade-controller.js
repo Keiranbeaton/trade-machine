@@ -17,8 +17,8 @@ module.exports = (app) => {
     this.clickedColor = {'background-color': '#f4e5af'};
     this.playerStyling = 'roster-player';
     this.tradedStyling = 'traded-player';
-    this.teamStyling = {'background-color': 'white', 'color': 'black'};
-    this.activeTeamStyling = {'background-color': 'black', 'color': 'white'};
+    this.teamStyling = {'background-color': '#9d9d9d'};
+    this.activeTeamStyling = {'background-color': '#474b50'};
     this.activeList = [];
     this.width = 'two-team-width';
     this.dropDownWidth = 'two-team-width';
