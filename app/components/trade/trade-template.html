@@ -5,304 +5,405 @@
     </div>
   </div>
 </nav>
-<div class="container-fluid results-view" ng-show="$ctrl.tradeComplete">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h3 class="result-success" ng-show="$ctrl.tradeResult.success">Trade Succeeds</h3>
-      <h3 class="result-failure" ng-show="!$ctrl.tradeResult.success">Trade Fails</h3>
+<div id="results-view" ng-show="$ctrl.tradeComplete">
+  <div class="results-section">
+    <h3 class="results-success" ng-show="$ctrl.tradeResult.success">Trade Succeeds</h3>
+    <h3 class="results-failure" ng-show="!$ctrl.tradeResult.success">Trade Fails</h3>
+  </div>
+  <div class="results-section" ng-show="!$ctrl.tradeResult.success">
+    <h5>Trade Failed For The Following Reasons</h5>
+    <ul class="results-reasons">
+      <li ng-repeat="reason in $ctrl.tradeResult.reasonsForFailing">{{reason}}</li>
+    </ul>
+  </div>
+  <div class="results-section">
+    <div class="results-button">
+      <button type="button" class="kb-btn" ng-click="$ctrl.resetTeams()">Reset</button>
+    </div>
+    <div class="results-button">
+      <button type="button" class="kb-btn" ng-click="$ctrl.adjustTrade()">Adjust Trade</button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h5 ng-show="!$ctrl.tradeResult.success">Trade Failed For The Following Reasons</h5>
-      <ul class="result-reasons">
-        <li ng-repeat="reason in $ctrl.tradeResult.reasonsForFailing">{{reason}}</li>
-      </ul>
+  <div ng-repeat="team in $ctrl.tradeResult.involved" class="results-section">
+    <div class="results-name">
+      <h3 class="success" ng-show="team.success">{{team.team}}</h3>
+      <h3 class="failed" ng-hide="team.success">{{team.team}}</h3>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 results-button">
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.resetTeams()">Reset</button>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 results-button">
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.adjustTrade()">Adjust Trade</button>
-    </div>
-  </div>
-  <div ng-repeat="team in $ctrl.tradeResult.involved" class="team-results-container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3 class="result-name">{{team.team}} Recap</h3>
+    <div class="results-labels">
+      <div>
+        <p><b>Change in Salary</b></p>
+      </div>
+      <div>
+        <p><b>Updated Cap Room</b></p>
+      </div>
+      <div>
+        <p><b>Updated Salary</b></p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Change in Salary</b></p>
+    <div class="results-data">
+      <div>
+        <p>{{team.capChangeDisplay}} ${{team.capChange | number}}</p>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Updated Cap Room</b></p>
+      <div>
+        <p>{{team.finalCapRoomDisplay}}{{team.finalCapRoom | number}}</p>
       </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        <p class="result-label"><b>Updated Salary</b></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.capChange}}</p>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.finalCapRoom}}</p>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 result-num">
-        <p>${{team.finalSalary}}</p>
+      <div>
+        <p>${{team.finalSalary | number}}</p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-array">
-        <p class="result-label"><b>Traded Away:</b></p>
-        <p ng-repeat="player in team.playersLost">{{player.firstName}} {{player.lastName}}</p>
+    <div class="results-players">
+      <div class="results-traded">
+        <p class="results-traded-label"><b>Traded Away:</b></p>
+        <div class="player-container traded-player" ng-repeat="player in team.playersLost">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 result-array">
-        <p><b>Traded For:</b></p>
-        <p ng-repeat="player in team.newPlayers">{{player.firstName}} {{player.lastName}}</p>
+      <div class="results-traded">
+        <p class="results-traded-label"><b>Traded For:</b></p>
+        <div class="player-container traded-player" ng-repeat="player in team.newPlayers">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <p>${{player.contract.yearByYear[0] | number}}</p>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="container-fluid" ng-hide="$ctrl.tradeComplete">
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <div ng-repeat="player in $ctrl.teamOne.team.roster | orderBy: 'contract.yearByYear[0]'">
-        <div ng-show="player.chooseDest" class="player">
-          <p class="trade-button">Send To:</p>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+<div class="machine-container" ng-hide="$ctrl.tradeComplete">
+  <div class="machine-container machine-head">
+    <div class="machine-container choose-team-label">
+      <p>Select teams to include them in a trade</p>
+    </div>
+    <div class="machine-container choose-team-dropdowns">
+      <div class="single-dropdown" uib-dropdown ng-class="$ctrl.dropDownWidth">
+        <button id="choose-team-one" type="button" class="kb-btn-two" uib-dropdown-toggle>{{$ctrl.teamOne.team.name}}  <div class="down-arrow"></div></button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-one">
+          <li role="menuitem"><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamOne, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+        </ul>
+      </div>
+      <div class="single-dropdown" uib-dropdown ng-class="$ctrl.dropDownWidth">
+        <button id="choose-team-two" type="button" class="kb-btn-two" uib-dropdown-toggle>{{$ctrl.teamTwo.team.name}}  <div class="down-arrow"></div></button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-two">
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+        </ul>
+      </div>
+      <div class="single-dropdown" uib-dropdown ng-class="$ctrl.dropDownWidth">
+        <button id="choose-team-three" type="button" class="kb-btn-two" uib-dropdown-toggle>{{$ctrl.teamThree.team.name}}  <div class="down-arrow"></div></button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-three">
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamThree, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+        </ul>
+      </div>
+      <div class="single-dropdown" uib-dropdown ng-class="$ctrl.dropDownWidth">
+        <button id="choose-team-four" type="button" class="kb-btn-two" uib-dropdown-toggle>{{$ctrl.teamFour.team.name}}  <div class="down-arrow"></div></button>
+        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="choose-team-four">
+          <li role="menuitem" ><a ng-style="$ctrl.teams[0].background" href ng-click="$ctrl.teams[0].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[0])">{{$ctrl.teams[0].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[1].background" href ng-click="$ctrl.teams[1].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[1])">{{$ctrl.teams[1].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[2].background" href ng-click="$ctrl.teams[2].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[2])">{{$ctrl.teams[2].name}}</a></li>
+          <li role="menuitem" ><a ng-style="$ctrl.teams[3].background" href ng-click="$ctrl.teams[3].inTrade || $ctrl.setTeamSlot($ctrl.teamFour, $ctrl.teams[3])">{{$ctrl.teams[3].name}}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="trade-buttons" ng-show="$ctrl.activeList.length > 1">
+      <button type="button" class="kb-btn" ng-click="$ctrl.submitTrade()">Evaluate Trade</button>
+      <button type="button" class="kb-btn" ng-click="$ctrl.resetTeams()">Reset Trade</button>
+    </div>
+  </div>
+  <div class="machine-container trade-info">
+    <div class="team-wrapper" ng-class="$ctrl.width">
+      <div class="trade-team" ng-show="$ctrl.teamOne.active">
+        <div class="info-left">
+          <h2>{{$ctrl.teamOne.team.name}}</h2>
         </div>
-        <div class="player" ng-hide="player.chooseDest" ng-click="$ctrl.choosePlayer(player, $ctrl.teamOne)" ng-style="player.background">
-          <div class="player-name">
-            {{player.firstName}} {{player.lastName}}
-          </div>
-          <div class="player-salary">
-            ${{player.contract.yearByYear[0]/1000000 | number:1}}M
-          </div>
+        <div class="info-right">
+          <p> Cap Room: </p>
+          <p> {{$ctrl.teamOne.team.capDisplay}}{{$ctrl.teamOne.team.capDisplayNum | number}} </p>
+        </div>
+        <div class="info-right">
+          <p> Tax Room: </p>
+          <p> {{$ctrl.teamOne.team.taxDisplay}}{{$ctrl.teamOne.team.taxDisplayNum | number}} </p>
         </div>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <div ng-repeat="player in $ctrl.teamTwo.team.roster | orderBy: 'contract.yearByYear[0]'">
-        <div ng-show="player.chooseDest" class="player">
-          <p class="trade-button">Send To:</p>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+    <div class="team-wrapper" ng-class="$ctrl.width">
+      <div class="trade-team" ng-show="$ctrl.teamTwo.active">
+        <div class="info-left">
+          <h2>{{$ctrl.teamTwo.team.name}}</h2>
         </div>
-        <div ng-hide="player.chooseDest" class="player" ng-click="$ctrl.choosePlayer(player, $ctrl.teamTwo)" ng-style="player.background">
-          <div class="player-name">
-            {{player.firstName}} {{player.lastName}}
-          </div>
-          <div class="player-salary">
-            ${{player.contract.yearByYear[0]/1000000 | number:1}}M
-          </div>
+        <div class="info-right">
+          <p> Cap Room: </p>
+          <p> {{$ctrl.teamTwo.team.capDisplay}}{{$ctrl.teamTwo.team.capDisplayNum | number}} </p>
+        </div>
+        <div class="info-right">
+          <p> Tax Room: </p>
+          <p> {{$ctrl.teamTwo.team.taxDisplay}}{{$ctrl.teamTwo.team.taxDisplayNum | number}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="team-wrapper" ng-class="$ctrl.width" ng-show="$ctrl.teamThree.active">
+      <div class="trade-team">
+        <div class="info-left">
+          <h2>{{$ctrl.teamThree.team.name}}</h2>
+        </div>
+        <div class="info-right">
+          <p> Cap Room: </p>
+          <p> {{$ctrl.teamThree.team.capDisplay}}{{$ctrl.teamThree.team.capDisplayNum | number}} </p>
+        </div>
+        <div class="info-right">
+          <p> Tax Room: </p>
+          <p> {{$ctrl.teamThree.team.taxDisplay}}{{$ctrl.teamThree.team.taxDisplayNum | number}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="team-wrapper" ng-class="$ctrl.width" ng-show="$ctrl.teamFour.active">
+      <div class="trade-team">
+        <div class="info-left">
+          <h2>{{$ctrl.teamFour.team.name}}</h2>
+        </div>
+        <div class="info-right">
+          <p> Cap Room: </p>
+          <p> {{$ctrl.teamFour.team.capDisplay}}{{$ctrl.teamFour.team.capDisplayNum | number}} </p>
+        </div>
+        <div class="info-right">
+          <p> Tax Room: </p>
+          <p> {{$ctrl.teamFour.team.taxDisplay}}{{$ctrl.teamFour.team.taxDisplayNum | number}} </p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamOne, $ctrl.formOne)" ng-hide="$ctrl.teamOne.active">
-        <select ng-options="team.name for team in $ctrl.teams | orderBy: 'name'" ng-model="$ctrl.formOne"></select>
-        <button type="submit" class="btn btn-default">Choose Team</button>
-      </form>
-      <div class="team-container-phone" ng-show="$ctrl.teamOne.active">
-        <button type="button" class="btn btn-danger change-button-phone" ng-click="$ctrl.emptySlot($ctrl.teamOne)">Change Team</button>
-          <h5><b>{{$ctrl.teamOne.team.name}}</b></h5>
-          <p>Team Salary:</p>
-          <p>${{$ctrl.teamOne.team.totalSalary}}</p>
-          <p>Cap Room:</p>
-          <p>${{$ctrl.teamOne.capRoom}}</p>
-      </div>
-      <div class="team-container" ng-show="$ctrl.teamOne.active">
-        <h5 class="team-name">{{$ctrl.teamOne.team.name}}</h5>
-        <button type="button" class="btn btn-danger team-name" ng-click="$ctrl.emptySlot($ctrl.teamOne)">Change</button>
-        <p class="team-name">Cap Room:</p>
-        <p class="team-name">Team Salary:</p>
-        <div class="team-info"></div>
-        <div class="team-info"></div>
-        <p class="team-info">${{$ctrl.teamOne.capRoom}}</p>
-        <p class="team-info">${{$ctrl.teamOne.team.totalSalary}}</p>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamTwo, $ctrl.formTwo)" ng-hide="$ctrl.teamTwo.active">
-        <select ng-options="team.name for team in $ctrl.teams | orderBy: 'name'" ng-model="$ctrl.formTwo"></select>
-        <button type="submit" class="btn btn-default">Choose Team</button>
-      </form>
-      <div class="team-container-phone" ng-show="$ctrl.teamTwo.active">
-        <button type="button" class="btn btn-danger change-button-phone" ng-click="$ctrl.emptySlot($ctrl.teamTwo)">Change Team</button>
-        <h5><b>{{$ctrl.teamTwo.team.name}}</b></h5>
-        <p>Team Salary:</p>
-        <p>${{$ctrl.teamTwo.team.totalSalary}}</p>
-        <p>Cap Room:</p>
-        <p>${{$ctrl.teamTwo.capRoom}}</p>
-      </div>
-      <div class="team-container" ng-show="$ctrl.teamTwo.active">
-        <h5 class="team-name">{{$ctrl.teamTwo.team.name}}</h5>
-        <button type="button" class="btn btn-danger team-name" ng-click="$ctrl.emptySlot($ctrl.teamTwo)">Change</button>
-        <p class="team-name">Cap Room:</p>
-        <p class="team-name">Team Salary:</p>
-        <div class="team-info"></div>
-        <div class="team-info"></div>
-        <p class="team-info">${{$ctrl.teamTwo.capRoom}}</p>
-        <p class="team-info">${{$ctrl.teamTwo.team.totalSalary}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3 trade-column trade-sending">
-      <h5 class="trade-sending" ng-show="$ctrl.teamOne.active">Sending:</h5>
-      <p class="trade-sending" ng-repeat="player in $ctrl.teamOne.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-sending" ng-repeat="pick in $ctrl.teamOne.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-      <p class="trade-sending" ng-repeat="obj in $ctrl.teamOne.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 trade-column trade-receiving">
-      <h5 class="trade-receiving" ng-show="$ctrl.teamOne.active">Receiving:</h5>
-      <p class="trade-receiving" ng-repeat="player in $ctrl.teamOne.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-receiving" ng-repeat="pick in $ctrl.teamOne.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-    </div>
-    <div class="col-sm-3 col-md-3 col-lg-3 trade-column trade-sending">
-      <h5 class="trade-sending" ng-show="$ctrl.teamTwo.active">Sending:</h5>
-      <p class="trade-sending" ng-repeat="player in $ctrl.teamTwo.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-sending" ng-repeat="pick in $ctrl.teamTwo.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-      <p class="trade-sending" ng-repeat="obj in $ctrl.teamTwo.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 trade-column trade-receiving">
-      <h5 class="trade-receiving" ng-show="$ctrl.teamTwo.active">Receiving:</h5>
-      <p class="trade-receiving" ng-repeat="player in $ctrl.teamTwo.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-receiving" ng-repeat="pick in $ctrl.teamTwo.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 buttons-row">
-      <button type="button" class="btn btn-success" ng-click="$ctrl.submitTrade()" ng-show="$ctrl.showButtons"> Make Trade </button>
-      <button type="button" class="btn btn-primary" ng-click="$ctrl.resetTeams()" ng-show="$ctrl.showButtons"> Reset Machine</button>
-      <p ng-show="$ctrl.tradeResult.warning">
-        {{this.tradeResult.warningText}}
-        <button type="button" class="btn btn-warning" ng-click="$ctrl.dismissWarning()">Got It</button>
-      </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3 trade-column trade-sending">
-      <h5 ng-show="$ctrl.teamThree.active">Sending:</h5>
-      <p class="trade-sending" ng-repeat="player in $ctrl.teamThree.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-sending" ng-repeat="pick in $ctrl.teamThree.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-      <p class="trade-sending" ng-repeat="obj in $ctrl.teamThree.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 trade-column trade-receiving">
-      <h5 ng-show="$ctrl.teamThree.active">Receiving:</h5>
-      <p class="trade-receiving" ng-repeat="player in $ctrl.teamThree.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-receiving" ng-repeat="pick in $ctrl.teamThree.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-    </div>
-    <div class="col-sm-3 col-md-3 col-lg-3 trade-column trade-sending">
-      <h5 ng-show="$ctrl.teamFour.active">Sending:</h5>
-      <p class="trade-sending" ng-repeat="player in $ctrl.teamFour.sending.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-sending" ng-repeat="pick in $ctrl.teamFour.sending.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-      <p class="trade-sending" ng-repeat="obj in $ctrl.teamFour.sending.tradeExceptions">Traded Player Exception: {{obj.value}}</p>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 trade-column trade-receiving">
-      <h5 ng-show="$ctrl.teamFour.active">Receiving:</h5>
-      <p class="trade-receiving" ng-repeat="player in $ctrl.teamFour.receiving.players">{{player.firstName[0]}}. {{player.lastName}}</p>
-      <p class="trade-receiving" ng-repeat="pick in $ctrl.teamFour.receiving.picks">Draft Pick: {{pick.year}} r:{{pick.round}}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamThree, $ctrl.formThree)" ng-hide="$ctrl.teamThree.active">
-        <select ng-options="team.name for team in $ctrl.teams | orderBy: 'name'" ng-model="$ctrl.formThree"></select>
-        <button type="submit" class="btn btn-default">Choose Team</button>
-      </form>
-      <div class="team-container-phone" ng-show="$ctrl.teamThree.active">
-        <button type="button" class="btn btn-danger change-button-phone" ng-click="$ctrl.emptySlot($ctrl.teamThree)">Change Team</button>
-        <h5><b>{{$ctrl.teamThree.team.name}}</b></h5>
-        <p>Team Salary:</p>
-        <p>${{$ctrl.teamThree.team.totalSalary}}</p>
-        <p>Cap Room:</p>
-        <p>${{$ctrl.teamThree.capRoom}}</p>
-      </div>
-      <div class="team-container" ng-show="$ctrl.teamThree.active">
-        <h5 class="team-name">{{$ctrl.teamThree.team.name}}</h5>
-        <button type="button" class="btn btn-danger team-name" ng-click="$ctrl.emptySlot($ctrl.teamThree)">Change</button>
-        <p class="team-name">Cap Room:</p>
-        <p class="team-name">Team Salary:</p>
-        <div class="team-info"></div>
-        <div class="team-info"></div>
-        <p class="team-info">${{$ctrl.teamThree.capRoom}}</p>
-        <p class="team-info">${{$ctrl.teamThree.team.totalSalary}}</p>
-      </div>
-    </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <form ng-submit="$ctrl.setTeamSlot($ctrl.teamFour, $ctrl.formFour)" ng-hide="$ctrl.teamFour.active">
-        <select ng-options="team.name for team in $ctrl.teams | orderBy: 'name'" ng-model="$ctrl.formFour"></select>
-        <button type="submit" class="btn btn-default">Choose Team</button>
-      </form>
-      <div class="team-container-phone" ng-show="$ctrl.teamFour.active">
-        <button type="button" class="btn btn-danger change-button-phone" ng-click="$ctrl.emptySlot($ctrl.teamFour)">Change Team</button>
-        <h5><b>{{$ctrl.teamFour.team.name}}</b></h5>
-        <p>Team Salary:</p>
-        <p>${{$ctrl.teamFour.team.totalSalary}}</p>
-        <p>Cap Room:</p>
-        <p>${{$ctrl.teamFour.capRoom}}</p>
-      </div>
-      <div class="team-container" ng-show="$ctrl.teamFour.active">
-        <h5 class="team-name">{{$ctrl.teamFour.team.name}}</h5>
-        <button type="button" class="btn btn-danger team-name" ng-click="$ctrl.emptySlot($ctrl.teamFour)">Change</button>
-        <p class="team-name">Cap Room:</p>
-        <p class="team-name">Team Salary:</p>
-        <div class="team-info"></div>
-        <div class="team-info"></div>
-        <p class="team-info">${{$ctrl.teamFour.capRoom}}</p>
-        <p class="team-info">${{$ctrl.teamFour.team.totalSalary}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <div ng-repeat="player in $ctrl.teamThree.team.roster | orderBy: '-contract.yearByYear[0]'">
-        <div ng-show="player.chooseDest" class="player">
-          <p class="trade-button">Send To:</p>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+  <div class="machine-container receiving">
+    <div class="receiving-players" ng-class="$ctrl.width">
+      <div class="receiving-labels" ng-show="$ctrl.teamOne.active">
+        <div class="player-info">
+          <p>Player</p>
         </div>
-        <div ng-hide="player.chooseDest" class="player" ng-click="$ctrl.choosePlayer(player, $ctrl.teamThree)" ng-style="player.background">
-          <div class="player-name">
-            {{player.firstName}} {{player.lastName}}
+        <div class="player-contract">
+          <p>Salary</p>
+        </div>
+      </div>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamOne.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
+        </div>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
+        </div>
+      </div>
+    </div>
+    <div class="receiving-players" ng-class="$ctrl.width">
+      <div class="receiving-labels" ng-show="$ctrl.teamTwo.active">
+        <div class="player-info">
+          <p>Player</p>
+        </div>
+        <div class="player-contract">
+          <p>Salary</p>
+        </div>
+      </div>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamTwo.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
+        </div>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
+        </div>
+      </div>
+    </div>
+    <div class="receiving-players" ng-class="$ctrl.width" ng-show="$ctrl.teamThree.active">
+      <div class="receiving-labels">
+        <div class="player-info">
+          <p>Player</p>
+        </div>
+        <div class="player-contract">
+          <p>Salary</p>
+        </div>
+      </div>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamThree.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
+        </div>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
+        </div>
+      </div>
+    </div>
+    <div class="receiving-players" ng-class="$ctrl.width" ng-show="$ctrl.teamFour.active">
+      <div class="receiving-labels">
+        <div class="player-info">
+          <p>Player</p>
+        </div>
+        <div class="player-contract">
+          <p>Salary</p>
+        </div>
+      </div>
+      <div class="player-container traded-player" ng-repeat="player in $ctrl.teamFour.receiving.players">
+        <div class="player-info">
+          <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+          <p class="player-position">{{player.position}}</p>
+          <p class="player-age">{{player.age}} years old</p>
+        </div>
+        <div class="player-contract">
+          <h3>${{player.contract.yearByYear[0] | number}}</h3>
+          <p>{{player.contract.yearByYear.length}} years</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="machine-rosters">
+    <div class="single-roster" ng-class="$ctrl.width">
+      <div class="receiving-summary" ng-show="$ctrl.teamOne.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamOne.receiving.players.length}} player(s)</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamOne.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamOne.active">
+        <p>{{$ctrl.teamOne.team.name}} roster</p>
+      </div>
+      <div class="player-container" ng-repeat="player in $ctrl.teamOne.team.roster" ng-class="player.background">
+        <div class="choose-destination" ng-show="player.chooseDestination">
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamOne, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+        </div>
+        <div class="player-standard" ng-hide="player.chooseDestination" ng-click="$ctrl.tradePlayer(player)">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
           </div>
-          <div class="player-salary">
-            ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+          <div class="player-contract">
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
+            <p>{{player.contract.yearByYear.length}} years</p>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-      <div ng-repeat="player in $ctrl.teamFour.team.roster | orderBy: '-contract.yearByYear[0]'">
-        <div ng-show="player.chooseDest" class="player">
-          <p class="trade-button">Send To:</p>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
-          <button type="button" class="btn btn-default trade-button" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+    <div class="single-roster" ng-class="$ctrl.width">
+      <div class="receiving-summary" ng-show="$ctrl.teamTwo.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamTwo.receiving.players.length}} player(s)</p>
         </div>
-        <div ng-hide="player.chooseDest" class="player" ng-click="$ctrl.choosePlayer(player, $ctrl.teamFour)"
-        ng-style="player.background">
-          <div class="player-name">
-            {{player.firstName}} {{player.lastName}}
+        <div class="receiving-money">
+          <p>${{$ctrl.teamTwo.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamTwo.active">
+        <p>{{$ctrl.teamTwo.team.name}} roster</p>
+      </div>
+      <div class="player-container" ng-repeat="player in $ctrl.teamTwo.team.roster" ng-class="player.background">
+        <div class="choose-destination" ng-show="player.chooseDestination">
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamTwo, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+        </div>
+        <div class="player-standard" ng-hide="player.chooseDestination" ng-click="$ctrl.tradePlayer(player)">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
           </div>
-          <div class="player-salary">
-            ${{player.contract.yearByYear[0]/1000000 | number:1}}M
+          <div class="player-contract">
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="single-roster" ng-class="$ctrl.width" ng-show="$ctrl.teamThree.active">
+      <div class="receiving-summary" ng-show="$ctrl.teamThree.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamThree.receiving.players.length}} player(s)</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamThree.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamThree.active">
+        <p>{{$ctrl.teamThree.team.name}} roster</p>
+      </div>
+      <div class="player-container" ng-repeat="player in $ctrl.teamThree.team.roster" ng-class="player.background">
+        <div class="choose-destination" ng-show="player.chooseDestination">
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamFour.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamThree, $ctrl.teamFour)">{{$ctrl.teamFour.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+        </div>
+        <div class="player-standard" ng-hide="player.chooseDestination" ng-click="$ctrl.tradePlayer(player)">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
+            <p>{{player.contract.yearByYear.length}} years</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="single-roster" ng-class="$ctrl.width" ng-show="$ctrl.teamFour.active">
+      <div class="receiving-summary" ng-show="$ctrl.teamFour.active">
+        <div class="receiving-number">
+          <p>Acquiring {{$ctrl.teamFour.receiving.players.length}} player(s)</p>
+        </div>
+        <div class="receiving-money">
+          <p>${{$ctrl.teamFour.receiving.money | number}}</p>
+        </div>
+      </div>
+      <div class="roster-header" ng-show="$ctrl.teamFour.active">
+        <p>{{$ctrl.teamFour.team.name}} roster</p>
+      </div>
+      <div class="player-container" ng-repeat="player in $ctrl.teamFour.team.roster" ng-class="player.background">
+        <div class="choose-destination" ng-show="player.chooseDestination">
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamOne.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamOne)">{{$ctrl.teamOne.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamTwo.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamTwo)">{{$ctrl.teamTwo.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-show="$ctrl.teamThree.active" ng-click="$ctrl.sendPlayer(player, $ctrl.teamFour, $ctrl.teamThree)">{{$ctrl.teamThree.team.name}}</button>
+          <button type="button" class="kb-send-btn" ng-click="$ctrl.cancelSend(player)">Cancel</button>
+        </div>
+        <div class="player-standard" ng-click="$ctrl.tradePlayer(player)" ng-hide="player.chooseDestination">
+          <div class="player-info">
+            <h3>{{player.firstName[0]}}. {{player.lastName}}</h3>
+            <p class="player-position">{{player.position}}</p>
+            <p class="player-age">{{player.age}} years old</p>
+          </div>
+          <div class="player-contract">
+            <h3>${{player.contract.yearByYear[0] | number}}</h3>
+            <p>{{player.contract.yearByYear.length}} years</p>
           </div>
         </div>
       </div>

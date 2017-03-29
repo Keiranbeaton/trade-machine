@@ -1,0 +1,30 @@
+$kb-two-team-width: 49%;
+$kb-two-team-gutter: .5%;
+$kb-three-team-width: 32.33%;
+$kb-four-team-width: 24%;
+$kb-small-text-phone: 1rem;
+$kb-large-text-phone: 1.25rem;
+$kb-button-text: white;
+
+
+.two-team-width {
+  width: $kb-two-team-width;
+}
+
+.three-team-width {
+  width: $kb-two-team-width;
+}
+
+.four-team-width {
+  width: $kb-two-team-width;
+}
+
+
+@media (min-width: 768px) {
+  .three-team-width {
+    width: $kb-three-team-width;
+  }
+  .four-team-width {
+    width: $kb-four-team-width;
+  }
+}

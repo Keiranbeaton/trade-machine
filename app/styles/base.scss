@@ -1,99 +1,36 @@
 @import './vendors/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
-
-@import './lib/roster.scss';
-@import './lib/results.scss';
+@import './lib/themes.scss';
 
 html, body {
   height: 100%;
   width: 100%;
   margin:0;
   padding: 0;
+  overflow-x: hidden;
+  color: white;
+  background: rgba(#9d9d9d, 0.6);
 }
 
-h5.trade-sending {
-  width: 100%;
-}
-
-p.trade-sending {
-  width: 100%;
-}
-
-.team-results-container {
-  width: 100%;
-}
-
-.buttons-row {
-  text-align: center;
-}
-
-.trade-sending {
-  display: none;
-}
-
-.player {
-  border: thin solid black;
-  vertical-align: middle;
-  width: 100%;
-  background-color: white;
-}
-
-.team-info {
-  display: inline-block;
-  width: 24%;
-  text-align: center;
-}
-
-.team-name {
-  width: 24%;
-  display: inline-block;
-  text-align: center;
-}
-p.team-info {
-  margin-bottom: 1%;
-}
-
-div.team-container-phone {
-  background-color: white;
-  width: 100%;
-  border: thin solid black;
-  margin-right: 15px;
-  h5 {
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-  }
-  p {
-    width: 100%;
-    display: inline-block;
-    text-align: center;
-    margin-bottom: 5px;
-  }
-  button {
-    width: 100%;
+nav.navbar-default {
+  background: #474b50;
+  color: white;
+  p.navbar-brand {
+    color: white;
   }
 }
 
-.team-container {
-  display: none;
+ul, ol, li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-
-
-@media (min-width: 768px) {
-  // body {
-  //   background-image: url('../assets/spurs-logo-wide.png');
-  // }
-  .trade-sending {
-    display:inline-block;
-  }
-  div.team-container-phone {
-    display: none;
-  }
-  div.team-container {
-    display: inline-block;
-    background-color: white;
-    width: 100%;
-    border: thin solid black;
-    margin-right: 15px;
-  }
+a {
+  color: inherit;
 }
+
+@import './lib/tradeInfo.scss';
+@import './lib/player-info.scss';
+@import './lib/roster.scss';
+@import './lib/results.scss';

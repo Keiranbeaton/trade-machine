@@ -1,19 +1,56 @@
 'use strict';
 
 module.exports = (app) => {
-  app.controller('TradeController', ['$log', '$http', '$rootScope',TradeController]);
-  function TradeController($log, $http, $rootScope) {
+  app.controller('TradeController', ['$log', '$http', '$rootScope', '$anchorScroll', '$location', TradeController]);
+  function TradeController($log, $http, $rootScope, $anchorScroll, $location) {
     this.salaryCap = $rootScope.salaryCap.cap;
+    this.taxLine = $rootScope.salaryCap.tax;
     this.teams = [];
-    this.teamOne = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-    this.teamTwo = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-    this.teamThree = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-    this.teamFour = {active: false, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
+    this.teamsInTrade = [];
+    this.teamOne = {id: 1, team: {name: 'Add Team'}, active: false, sending: {picks: [], players: [], tradeExceptions: [], money: 0}, receiving: {picks:[], players:[], tradeExceptions:[], money: 0}};
+    this.teamTwo = {id: 2, team: {name: 'Add Team'}, active: false, sending: {picks: [], players: [], tradeExceptions: [], money: 0}, receiving: {picks:[], players:[], tradeExceptions:[], money: 0}};
+    this.teamThree = {id: 3, team: {name: 'Add Team'}, active: false, sending: {picks: [], players: [], tradeExceptions: [], money: 0}, receiving: {picks:[], players:[], tradeExceptions:[], money: 0}};
+    this.teamFour = { id: 4, team: {name: 'Add Team'}, active: false, sending: {picks: [], players: [], tradeExceptions: [], money: 0}, receiving: {picks:[], players:[], tradeExceptions:[], money: 0}};
     this.tradeResult = {};
     this.tradeComplete = false;
-    this.showButtons = false;
     this.divColor = {'background-color': '#B6BFBF'};
     this.clickedColor = {'background-color': '#f4e5af'};
+    this.playerStyling = 'roster-player';
+    this.tradedStyling = 'traded-player';
+    this.teamStyling = {'background-color': 'white', 'color': 'black'};
+    this.activeTeamStyling = {'background-color': 'black', 'color': 'white'};
+    this.activeList = [];
+    this.width = 'two-team-width';
+    this.dropDownWidth = 'two-team-width';
+    this.twoTeam = 'two-team-width';
+    this.threeTeam = 'three-team-width';
+    this.fourTeam = 'four-team-width';
+
+    this.setSize = function() {
+      if (this.activeList.length < 2) {
+        this.width = this.twoTeam;
+        this.dropDownWidth = this.twoTeam;
+      }
+      if (this.activeList.length === 2) {
+        this.width = this.twoTeam;
+        this.dropDownWidth = this.threeTeam;
+      }
+      if(this.activeList.length === 3) {
+        this.width = this.threeTeam;
+        this.dropDownWidth = this.fourTeam;
+      }
+      if(this.activeList.length === 4) {
+        this.width = this.fourTeam;
+        this.dropDownWidth = this.fourTeam;
+      }
+    };
+
+    this.goToTop = function() {
+      let old = $location.hash();
+      $location.hash('results-view');
+      $anchorScroll();
+      $location.hash(old);
+    };
 
     this.getTeams = function() {
       $log.debug('TradeController.getTeams');
@@ -27,34 +64,75 @@ module.exports = (app) => {
       this.teams.push($rootScope.exampleThree);
       this.teams.push($rootScope.exampleFour);
       this.teams.forEach((team) => {
+
+        team.inTrade = false;
+        team.background = this.teamStyling;
+        team.capRoom = this.salaryCap - team.totalSalary;
+        team.taxRoom = this.taxLine - team.totalSalary;
+
+        if (team.capRoom < 0) {
+          team.capDisplay = '-$';
+          team.capDisplayNum = Math.abs(team.capRoom);
+          team.underCap = false;
+        } else {
+          team.capDisplay = '$';
+          team.capDisplayNum = team.capRoom;
+          team.underCap = true;
+        }
+
+        if (team.taxRoom < 0) {
+          team.taxDisplay = '-$';
+          team.taxDisplayNum = Math.abs(team.taxRoom);
+          team.underTax = false;
+        } else {
+          team.taxDisplay = '$';
+          team.taxDisplayNum = team.taxRoom;
+          team.underTax = true;
+        }
+
         team.roster.forEach((player) => {
           player.inTrade = false;
-          player.chooseDest = false;
+          player.chooseDestination = false;
           player.sentTo = {};
-          player.background = this.divColor;
+          player.background = this.playerStyling;
         });
       });
       this.savedTeams = this.teams;
-      $log.log('TradeController.savedTeams', this.savedTeams);
       $log.log('TradeController.teams', this.teams);
     };
 
     this.setTeamSlot = function(slot, team) {
       $log.debug('TradeController.setTeamSlot');
-      if (!team.roster) {
-        return;
+      if (!team.roster) return;
+
+      if(slot.team.hasOwnProperty('roster')) {
+        this.emptySlot(slot);
       }
+
+      if(slot.receiving.players.length) {
+        slot.receiving.players.forEach((player) => {
+          let origTeam = player.team;
+          origTeam.team.roster[origTeam.team.roster.indexOf(player)].background = this.playerStyling;
+          origTeam.sending.players.splice(origTeam.sending.players.indexOf(player), 1);
+        });
+      }
+
+      team.inTrade = true;
+      team.background = this.activeTeamStyling;
       team.roster.forEach((player) => {
-        player.team = slot;
-        player.background = this.divColor;
+        player.team = team.id;
+        player.slot = slot;
+        player.background = this.playerStyling;
       });
+
       slot.team = team;
-      $log.log(slot.team);
-      this.teams.splice(this.teams.indexOf(team), 1);
-      slot.capRoom = this.salaryCap - slot.team.totalSalary;
+      $log.log('team in slot ' + slot.id, team);
+      slot.sending = {picks: [], players: [], tradeExceptions: [], money: 0};
+      slot.receiving = {picks: [], players: [], tradeExceptions: [], money: 0};
       slot.active = true;
       this.tradeComplete = false;
-      this.showButtons = true;
+      this.activeList.push(slot);
+      this.setSize();
       $log.log(slot);
     };
 
@@ -62,37 +140,34 @@ module.exports = (app) => {
       $log.debug('TradeController.removeTeam');
       if(slot.receiving.players.length) {
         slot.receiving.players.forEach((player) => {
-          let origTeam = player.team;
-          origTeam.team.roster[origTeam.team.roster.indexOf(player)].background = this.divColor;
+          let origTeam = player.slot;
+          origTeam.team.roster[origTeam.team.roster.indexOf(player)].background = this.playerStyling;
+          origTeam.sending.money -= player.contract.yearByYear[0];
           origTeam.sending.players.splice(origTeam.sending.players.indexOf(player), 1);
         });
       }
+
       if(slot.sending.players.length) {
         slot.sending.players.forEach((player) => {
           let newTeam = player.sentTo;
           newTeam.receiving.players.splice(newTeam.receiving.players.indexOf(player), 1);
+          newTeam.receiving.money -= player.contract.yearByYear[0];
         });
       }
-      this.teams.push(slot.team);
-      slot.team = {};
+      slot.team.inTrade = false;
+      slot.team.background = this.teamStyling;
+      let index = this.teams.indexOf(slot.team);
+      this.teams[index].inTrade = false;
+      this.teams[index].background = this.teamStyling;
+      slot.team = {name: 'Add Team'};
       slot.active = false;
-      if (!this.teamOne.active && !this.teamTwo.active && !this.teamThree.active && !this.teamFour.active) this.showButtons = false;
-      slot.sending = {picks: [], players: [], tradeExceptions: []};
-      slot.receiving = {picks: [], players: [], tradeExceptions: []};
+      slot.sending = {picks: [], players: [], tradeExceptions: [], money: 0};
+      slot.receiving = {picks: [], players: [], tradeExceptions: [], money: 0};
       slot.capRoom = 0;
       this.tradeComplete = false;
+      this.activeList.splice(this.activeList.indexOf(slot), 1);
+      this.setSize();
       $log.log(slot + ' cleared');
-    };
-
-    this.resetPlayers = function(team) {
-      if (team.active) {
-        team.players.forEach((player) => {
-          player.chooseDest = false;
-          player.inTrade = false;
-          player.sentTo = {};
-          player.background = this.divColor;
-        });
-      }
     };
 
     this.resetTeams = function() {
@@ -106,18 +181,15 @@ module.exports = (app) => {
         this.emptySlot(this.teamTwo);
       }
       if (this.teamThree.active) {
+        $log.log('TeamThree');
         this.emptySlot(this.teamThree);
       }
       if (this.teamFour.active) {
+        $log.log('TeamFour');
         this.emptySlot(this.teamFour);
       }
-      this.teamOne = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamTwo = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamThree = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
-      this.teamFour = {team: {}, active: false, capRoom: 0, sending: {picks: [], players: [], tradeExceptions: []}, receiving: {picks:[], players:[], tradeExceptions:[]}};
       this.tradeResult = {};
       this.tradeComplete = false;
-      this.showButtons = false;
     };
 
     this.adjustTrade = function() {
@@ -125,24 +197,58 @@ module.exports = (app) => {
       this.tradeComplete = false;
     };
 
-    this.choosePlayer = function(player, currTeam) {
-      $log.debug('TradeController.choosePlayer');
-      if (player.inTrade) {
-        $log.debug(player + ' evaluated as In Trade');
-        let newTeam = player.sentTo;
-        currTeam.sending.players.splice(currTeam.sending.players.indexOf(player), 1);
-        newTeam.receiving.players.splice(newTeam.receiving.players.indexOf(player), 1);
-        player.background = this.divColor;
-        player.inTrade = false;
-      } else {
-        $log.debug(player + ' evaluated as not In Trade');
-        player.chooseDest = true;
-      }
-    };
-
     this.cancelSend = function(player) {
       $log.debug('cancelSend');
-      player.chooseDest = false;
+      player.chooseDestination = false;
+    };
+
+    this.tradePlayer = function(player) {
+      $log.debug('TradeController.tradePlayer');
+      if(player.inTrade === true) {
+        this.returnPlayer(player);
+        return;
+      } else {
+        if (this.activeList.length === 1) {
+          return;
+        }
+        if (this.activeList.length === 2) {
+          player.inTrade = true;
+          player.background = this.tradedStyling;
+          this.activeList.forEach((slot) => {
+            if (slot.id !== player.slot.id) {
+              $log.log('Team player is not on', slot);
+              slot.receiving.players.push(player);
+              slot.receiving.money += player.contract.yearByYear[0];
+              player.sentTo = slot;
+            }
+            if (slot.id === player.slot.id) {
+              $log.log('team player is on', slot);
+              slot.sending.players.push(player);
+              slot.sending.money =+ player.contract.yearByYear[0];
+            }
+          });
+          return;
+        }
+      }
+      player.chooseDestination = true;
+      $log.log('player.chooseDestination', player.chooseDestination);
+    };
+
+    this.returnPlayer = function(player) {
+      $log.debug('TradeController.returnPlayer');
+      let team = player.slot;
+      if (team.sending.players.indexOf(player) !== -1) {
+        team.sending.players.splice(team.sending.players.indexOf(player), 1);
+        team.sending.money -= player.contract.yearByYear[0];
+      }
+      let newTeam = player.sentTo;
+      if (newTeam.receiving.players.indexOf(player) !== -1) {
+        newTeam.receiving.players.splice(newTeam.receiving.players.indexOf(player), 1);
+        newTeam.receiving.money -= player.contract.yearByYear[0];
+      }
+      player.inTrade = false;
+      player.chooseDestination = false;
+      player.background = this.playerStyling;
     };
 
     this.sendPlayer = function(player, currTeam, newTeam) {
@@ -156,22 +262,16 @@ module.exports = (app) => {
       // if (player.tradeRestrictions.length) {
       //   this.tradeResult.warningText = player.name + ' has a trade restriction that may prevent this trade from succeeding';
       // }
+      player.chooseDestination = false;
       player.inTrade = true;
-      player.chooseDest = false;
       player.sentTo = newTeam;
-      player.background = this.clickedColor;
+      player.background = this.tradedStyling;
       currTeam.sending.players.push(player);
+      currTeam.sending.money += player.contract.yearByYear[0];
       newTeam.receiving.players.push(player);
+      newTeam.receiving.money += player.contract.yearByYear[0];
     };
 
-    this.returnPlayer = function(player, team) {
-      $log.debug('TradeController.returnPlayer');
-      team.sending.players.splice(team.sending.players.indexOf(player), 1);
-      let newTeam = player.sentTo;
-      newTeam.receiving.players.splice(newTeam.receiving.players.indexOf(player), 1);
-      player.inTrade = false;
-      player.background = this.divColor;
-    };
 
     this.tradeImpact = function(team) {
       if (team.active) {
@@ -194,10 +294,28 @@ module.exports = (app) => {
           salaryLost += player.contract.yearByYear[0];
           playersSent.push(player);
         });
-
+        let capChangeDisplay;
         let capChange = salaryGained - salaryLost;
         let finalSalary = team.team.totalSalary + capChange;
+        if (capChange > 0 ) {
+          capChangeDisplay = 'Increased By';
+          capChange = Math.abs(capChange);
+        } else {
+          capChangeDisplay = 'Reduced By';
+          capChange = Math.abs(capChange);
+        }
         let finalCapRoom = this.salaryCap - finalSalary;
+        let finalCapRoomDisplay;
+        let underFinalCap;
+        if (finalCapRoom < 0) {
+          finalCapRoomDisplay = '-$';
+          underFinalCap = {'color': 'red'};
+          finalCapRoom = Math.abs(finalCapRoom);
+        } else  {
+          finalCapRoomDisplay = '$';
+          underFinalCap = {'color': 'green'};
+          finalCapRoom = Math.abs(finalCapRoom);
+        }
         // Prevents players from sending more than one trade exception, or from packaging a player with a tade exception
         // if ((team.sending.players.length && team.sending.tradeExceptions.length) || team.sending.tradeExceptions.length > 1) {
         //   tradeResult = {success: false, reason: 'Traded Player Exceptions cannot be traded along with players or other trade exceptions'};
@@ -210,7 +328,7 @@ module.exports = (app) => {
         // Prevents teams over the salary cap from receiving more than 125% of their current salary + $100000 as per league rules
         if (finalSalary > this.salaryCap && (salaryGained > salaryLost * 1.25 + 100000)) {
           tradeResult.success = false;
-          failingPoints = team.team.name + ' is over the salary cap, and cannot receive in excess of 125% of the salary they sent plus $100000';
+          failingPoints = team.team.name + ' is over the salary cap, and cannot receive in excess of 125% of the salary they sent plus $100,000';
         }
         // Updates value of a traded player exception that is used to acquire a player
         // if (team.sending.tradeExceptions) {
@@ -223,7 +341,10 @@ module.exports = (app) => {
         tradeResult.active = true;
         tradeResult.team = team.team.name;
         tradeResult.capChange = capChange;
+        tradeResult.capChangeDisplay = capChangeDisplay;
         tradeResult.finalCapRoom = finalCapRoom;
+        tradeResult.finalCapRoomDisplay = finalCapRoomDisplay;
+        tradeResult.underFinalCap = underFinalCap;
         tradeResult.playersLost = playersSent;
         tradeResult.newPlayers = playersReceived;
         tradeResult.finalSalary = finalSalary;
@@ -231,12 +352,6 @@ module.exports = (app) => {
         return tradeResult;
       }
       return {active: false};
-    };
-
-    this.dismissWarning = function() {
-      $log.debug('TradeController.dismmissWarning');
-      this.tradeResult.warningText = '';
-      this.tradeResult.warning = false;
     };
 
     this.submitTrade = function(){
@@ -268,6 +383,7 @@ module.exports = (app) => {
       });
 
       this.tradeComplete = true;
+      this.goToTop();
     };
   }
 };
