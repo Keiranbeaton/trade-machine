@@ -1,30 +1,49 @@
-.machine-rosters {
+div.machine-rosters {
   white-space: nowrap;
   font-size: 0;
-}
-
-.single-roster {
-  white-space: normal;
-  display: inline-block;
-  margin-left: $kb-two-team-gutter;
-  margin-right: $kb-two-team-gutter;
-}
-
-.single-roster {
-  .player-container {
-    cursor: pointer;
-  }
-}
-
-.roster-header {
-  width: 100%;
-  text-align: center;
-  border: thin white solid;
-  background: $kb-color1;
-  color: white;
-  p {
-    font-size: $kb-small-text;
-    text-align: center;
-    margin-bottom: 0;
+  div.single-roster {
+    white-space: normal;
+    display: inline-block;
+    margin-left: $kb-two-team-gutter;
+    margin-right: $kb-two-team-gutter;
+    div.receiving-summary {
+      white-space: normal;
+      display: inline-block;
+      width: 100%;
+      margin: 0;
+      border: thin white solid;
+      background: $kb-color2;
+      color: white;
+      p {
+        font-size: $kb-small-text;
+        margin-bottom: 0px;
+        margin-top: 5px;
+      }
+      div.receiving-number {
+        display: inline-block;
+        width: 61%;
+        text-align: center;
+      }
+      div.receiving-money {
+        display: inline-block;
+        width:35%;
+        text-align: center;
+      }
+    }
+    div.roster-header {
+      width: 100%;
+      text-align: center;
+      border: thin white solid;
+      background: $kb-color1;
+      color: white;
+      p {
+        font-size: $kb-small-text;
+        text-align: center;
+        margin-bottom: 0;
+      }
+    }
+    div.player-container {
+      cursor: pointer;
+    }
   }
 }

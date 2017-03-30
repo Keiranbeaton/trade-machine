@@ -38,6 +38,24 @@ button {
    vertical-align: middle;
  }
 
+ .roster-player {
+   background-image: url('../assets/player-background.jpg');
+   background-repeat: repeat-x;
+ }
+
+ .traded-player {
+   background-image: url('../assets/player-trade-background.jpg');
+   background-repeat: repeat-x;
+ }
+
+ .down-arrow {
+   display: inline-block;
+   width: 0;
+   height: 0;
+   border-left: 5px solid transparent;
+   border-right: 5px solid transparent;
+   border-top: 5px solid $kb-button-text;
+ }
 
 .dropdown-menu {
   -webkit-box-shadow: none;

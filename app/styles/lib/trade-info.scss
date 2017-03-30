@@ -1,191 +1,129 @@
-.machine-container {
+section#machine-view {
   width: 100%;
   white-space: nowrap;
   font-size: 0;
   margin: 0;
-}
-
-.choose-team-label {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 10px;
-  p {
-    font-size: 1.5rem;
+  .machine-container, .machine-head {
+    width: 100%;
+    white-space: nowrap;
+    font-size: 0;
+    margin: 0;
+  }
+  div.choose-team-label {
+    @extend .machine-container;
     text-align: center;
+    margin-bottom: 10px;
+    p {
+      font-size: 1.5rem;
+      text-align: center;
+    }
   }
-}
-
-.choose-team-dropdowns {
-  text-align: center;
-  width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background: $kb-color1;
-  border: thin white solid;
-  border-radius: 5px;
-  white-space: nowrap;
-  font-size: 0;
-  div.single-dropdown {
-    white-space: normal;
+  div.choose-team-dropdowns {
     text-align: center;
-    display: inline-block;
-    margin-left: $kb-two-team-gutter;
-    margin-right: $kb-two-team-gutter;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: $kb-color1;
+    border: thin white solid;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 0;
+    div.single-dropdown {
+      white-space: normal;
+      text-align: center;
+      display: inline-block;
+      margin-left: $kb-two-team-gutter;
+      margin-right: $kb-two-team-gutter;
+    }
+  }
+  div.trade-buttons {
+    @extend .machine-container;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 10px;
+    min-height: 25.33px;
+    button {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+    button.kb-btn-two {
+      color: white;
+      border: thin solid $kb-color1;
+      &:hover {
+        border: thin solid white;
+      }
+    }
+    button.kb-btn-team {
+      background: $kb-color3;
+      border: thin solid $kb-color3;
+      &:hover {
+        border: thin solid white;
+      }
+    }
+  }
+  div.trade-info {
+    @extend .machine-container;
+    div.team-wrapper {
+      display: inline-block;
+      margin-left: $kb-two-team-gutter;
+      margin-right: $kb-two-team-gutter;
+      div.trade-team {
+        white-space: normal;
+        width: 100%;
+        padding-left: 5px;
+        vertical-align: top;
+        overflow: auto;
+        color: white;
+        border: thin white solid;
+        background: $kb-color1;
+        h2 {
+          margin-top: 5px;
+        }
+        div.info-left {
+          display: inline-block;
+          width: 80%;
+          h2 {
+            font-size: $kb-large-text;
+            text-align: left;
+            margin-bottom: 0;
+          }
+        }
+        div.info-right {
+          display: inline-block;
+          width: 50%;
+          p {
+            font-size: $kb-small-text;
+            text-align: left;
+            margin-top: 5px;
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+  div.receiving {
+    @extend .machine-container;
+    div.receiving-players {
+      vertical-align: top;
+      display: inline-block;
+      margin-left: $kb-two-team-gutter;
+      margin-right: $kb-two-team-gutter;
+      div.receiving-labels {
+        white-space: normal;
+        width: 100%;
+        padding-left: 5px;
+        background: $kb-color2;
+        border: thin white solid;
+        color: white;
+        p {
+          font-size: $kb-small-text;
+        }
+      }
+    }
   }
 }
-
-
-.trade-buttons {
-  text-align: center;
-  margin-top: 5%;
-  margin-bottom: 10px;
-  min-height: 25.33px;
-  button {
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-}
-
- .kb-btn-two {
-   color: white;
-   border: thin solid $kb-color1;
-   &:hover {
-     border: thin solid white;
-   }
- }
-
- .kb-btn-team {
-   background: $kb-color3;
-   border: thin solid $kb-color3;
-   &:hover {
-     border: thin solid white;
-   }
- }
-
-.down-arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid $kb-button-text;
-}
-
-.trade-info {
-  width: 100%;
-}
-
-.team-wrapper {
-  display: inline-block;
-  margin-left: $kb-two-team-gutter;
-  margin-right: $kb-two-team-gutter;
-}
-
-.trade-team {
-  white-space: normal;
-  width: 100%;
-  padding-left: 5px;
-  vertical-align: top;
-  overflow: auto;
-  color: white;
-  border: thin white solid;
-  background: $kb-color1;
-  h2 {
-    margin-top: 5px;
-  }
-}
-
-
-.info-left {
-  display: inline-block;
-  width: 80%;
-  h2 {
-    font-size: $kb-large-text;
-    text-align: left;
-    margin-bottom: 0;
-  }
-}
-
-.info-right {
-  display: inline-block;
-  width: 50%;
-  p {
-    font-size: $kb-small-text;
-    text-align: left;
-    margin-top: 5px;
-    margin-bottom: 0;
-  }
-}
-
-.info-inline {
-  display: inline-block;
-}
-
-.info-block {
-  display: block;
-}
-
-
-.receiving {
-  white-space: nowrap;
-  font-size: 0;
-  margin: 0;
-}
-
-.receiving-players {
-  vertical-align: top;
-  display: inline-block;
-  margin-left: $kb-two-team-gutter;
-  margin-right: $kb-two-team-gutter;
-}
-
-.receiving-labels {
-  white-space: normal;
-  width: 100%;
-  padding-left: 5px;
-  background: $kb-color2;
-  border: thin white solid;
-  color: white;
-  p {
-    font-size: $kb-small-text;
-  }
-}
-
-.receiving-summary {
-  white-space: normal;
-  display: inline-block;
-  width: 100%;
-  margin: 0;
-  border: thin white solid;
-  background: $kb-color2;
-  color: white;
-  p {
-    font-size: $kb-small-text;
-    margin-bottom: 0px;
-    margin-top: 5px;
-  }
-}
-
-.receiving-number {
-  display: inline-block;
-  width: 61%;
-  text-align: center;
-  p {
-    font-size: $kb-small-text;
-  }
-}
-
-.receiving-money {
-  display: inline-block;
-  width:35%;
-  text-align: center;
-  p {
-    font-size: $kb-small-text;
-  }
-}
-
 #choose-team-three {
   display: none;
 }
