@@ -1,223 +1,215 @@
-#results-view {
+section#results-view {
   padding: 10px 5px 10px 5px;
   background-color: $kb-color1;
   border: thin solid white;
   border-radius: 5px;
   margin-bottom: 5%;
-  .player-info {
-    h3 {
-      text-align: left;
-      font-size: .9rem;
-    }
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0;
   }
-  .player-contract {
-    p {
-      font-size: .9rem;
-    }
-  }
-}
 
-.results-section {
-  width: 100%;
-  font-size: 0;
-  white-space: nowrap;
-  padding-left: 3%;
-  padding-right: 3%;
-  padding-bottom: 3%;
-  h3 {
+  div.results-buttons {
+    font-size: 0;
+    white-space: nowrap;
+    min-width: 70%;
+    margin: 2% 15%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: thin solid white;
+    border-radius: 5px;
+    background: $kb-color3;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+    div.results-btn {
+      width: 50%;
+      display: inline-block;
+      white-space: normal;
+    }
+  }
+  button.kb-btn {
+    color: white;
+    background: $kb-color1;
+    border: thin solid $kb-color1;
+    &:hover {
+      border: thin solid white;
+    }
+  }
+  div.results-section {
+    width: 100%;
+    font-size: 0;
+    white-space: nowrap;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 10px;
+  }
+  h2 {
     margin-top: 0;
     margin-bottom: 0;
     width: 100%;
     text-align: center;
-    font-size: 2rem;
     font-weight: bold;
   }
-  h3.results-success, h3.results-failure {
-    width: 100%;
-    text-align: center;
+  h2.success, h2.failed {
     padding: 2% 5% 2% 5%;
     font-size: 2.5rem;
     background: $kb-color1;
   }
-  h5 {
-    width: 100%;
-    text-align: center;
-    font-size: 1.25rem;
-    color: red;
-    text-decoration: underline;
+  .success {
+    color: $kb-success;
   }
-  ul.results-reasons {
-    white-space: normal;
-    width: 100%;
-    li {
-      display: inline-block;
-      font-size: 1rem;
+  .failed {
+    color: $kb-failed;
+  }
+  div.reasons {
+    h3 {
       width: 100%;
-      padding-left: 5%;
+      text-align: center;
+      font-size: 1.25rem;
+      color: $kb-failed;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    ul {
+      white-space: normal;
+      width: 100%;
+      li {
+        display: inline-block;
+        font-size: $kb-small-text;
+        width: 100%;
+        padding-left: 5%;
+      }
     }
   }
-}
+  div.results-team {
+    @extend .results-section;
+    h3 {
+      width: 100%;
+      text-align: center;
+      text-decoration: underline;
+      font-weight: bold;
+      margin-bottom: 2%;
+    }
+    div.results-labels {
+      width: 100%;
+      p {
+        display: inline-block;
+        width: 33.33%;
+        font-size: $kb-small-text;
+        text-align: center;
+        text-decoration: underline;
+      }
+    }
+    div.results-data {
+      @extend .results-labels;
+      p {
+        text-decoration: none;
+      }
+    }
+    div.results-players {
+      width: 100%;
+      white-space: nowrap;
+      font-size: 0;
+      div.results-traded {
+        width: 50%;
+        display: inline-block;
+        vertical-align: top;
+        h4 {
+          width: 100%;
+          font-size: $kb-small-text;
+          text-align: center;
+          font-weight: bold;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        div.results-player-labels {
+          white-space: normal;
+          width: 100%;
+          padding-left: 5px;
+          background: $kb-color2;
+          border: thin white solid;
+          color: white;
+          p {
+            font-size: $kb-small-text;
+          }
+        }
+        div.results-single-player {
+          background-image: url('../assets/player-trade-background.jpg');
+          background-repeat: repeat-x;
+          white-space: normal;
+          display: block;
+          width: 100%;
+          border: thin white solid;
+          color: black;
+          h5 {
+            text-align: left;
+            font-size: $kb-small-text-phone;
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+          p {
+            font-size: $kb-small-text-phone;
+          }
+        }
 
-.results-success {
-  color: green;
-}
-
-.results-failure {
-  color: red;
-}
-
-.results-buttons {
-  font-size: 0;
-  white-space: nowrap;
-  min-width: 70%;
-  margin: 2% 15%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border: thin solid white;
-  border-radius: 5px;
-  background: $kb-color3;
-  display: inline-block;
-  text-align: center;
-  margin-top: 10px;
-  .results-btn {
-    width: 50%;
-    display: inline-block;
-    white-space: normal;
+      }
+      div.results-summary-container {
+        width: 100%;
+        font-size: 0;
+        white-space: nowrap;
+        padding-bottom: 5%;
+        div.results-summary {
+          white-space: normal;
+          display: inline-block;
+          width: 50%;
+          margin: 0;
+          border: thin white solid;
+          background: $kb-color2;
+          color: white;
+          p {
+            font-size: $kb-small-text;
+            margin-bottom: 0px;
+            margin-top: 5px;
+          }
+          div.results-number {
+            display: inline-block;
+            width: 62%;
+            padding-left: 2px;
+            text-align: left;
+            p {
+              font-size: $kb-small-text-phone;
+            }
+          }
+          div.results-money {
+            display: inline-block;
+            width: 36%;
+            text-align: left;
+            p {
+              font-size: $kb-small-text-phone;
+            }
+          }
+        }
+      }
+    }
   }
-}
 
- .kb-btn {
-   color: white;
-   background: $kb-color1;
-   border: thin solid $kb-color1;
-   &:hover {
-     border: thin solid white;
-   }
- }
-
-.results-name {
-  width: 100%;
-  h3 {
-    text-decoration: underline;
-    font-weight: bold;
-  }
-  h3.success {
-    color: green;
-  }
-  h3.failed {
-    color: red;
-  }
-  margin-bottom: 2%;
-}
-
-.results-labels, .results-data {
-  width: 100%;
-  div {
-    display: inline-block;
-    width: 33.33%;
-  }
-  p {
-    width: 100%;
-    font-size: $kb-small-text;
-    text-align: center;
-  }
-}
-
-.results-labels {
-  p {
-    text-decoration: underline;
-  }
-}
-
-.results-players {
-  width: 100%;
-  white-space: nowrap;
-  font-size: 0;
-}
-
-.results-traded {
-  width: 50%;
-  display: inline-block;
-  vertical-align: top;
-  p.results-traded-label {
-    width: 100%;
-    font-size: $kb-small-text;
-    text-align: center;
-  }
-}
-
-.results-player-labels {
-  white-space: normal;
-  width: 100%;
-  padding-left: 5px;
-  background: $kb-color2;
-  border: thin white solid;
-  color: white;
-  p {
-    font-size: $kb-small-text;
-  }
-}
-
-.results-summary-container {
-  width: 100%;
-  font-size: 0;
-  white-space: nowrap;
-  padding-bottom: 5%;
-}
-
-.results-summary {
-  white-space: normal;
-  display: inline-block;
-  width: 50%;
-  margin: 0;
-  border: thin white solid;
-  background: $kb-color2;
-  color: white;
-  p {
-    font-size: $kb-small-text;
-    margin-bottom: 0px;
-    margin-top: 5px;
-  }
-}
-
-.results-number {
-  display: inline-block;
-  width: 62%;
-  padding-left: 2px;
-  text-align: left;
-  p {
-    font-size: .9rem;;
-  }
-}
-
-.results-money {
-  display: inline-block;
-  width: 36%;
-  text-align: left;
-  p {
-    font-size: $kb-small-text;
-  }
 }
 
 @media (min-width: 768px) {
-  #results-view {
+  section#results-view {
     width: 84%;
     margin-left: 7%;
     margin-right: 7%;
     li {
-      font-size: 1.25rem;
+      font-size: $kb-large-text;
     }
     .player-info {
       h3 {
         font-size: $kb-small-text;
       }
     }
-    .player-contract {
-      p {
-        font-size: $kb-small-text;
-      }
-    }
-    .results-number {
+    .player-contract, .results-number, .results-money {
       p {
         font-size: $kb-small-text;
       }
